@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rakna/ui/book_page.dart';
 import 'package:rakna/ui/profile_page.dart';
 
+import 'book_history.dart';
 import 'contact_us.dart';
 
 class Do extends StatefulWidget {
@@ -144,7 +145,11 @@ class _DoState extends State<Do> {
                                   Colors.white,
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {  Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const book_history() ),
+                              );},
                               child: const Text(
                                 'سجل ركناتك',
                                 textAlign: TextAlign.center,
