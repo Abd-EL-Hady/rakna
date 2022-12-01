@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:rakna/ui/book_page.dart';
 import 'package:rakna/ui/profile_page.dart';
@@ -29,16 +30,27 @@ class _DoState extends State<Do> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 20.0),
-                      child: Text(
-                        ' أهلا بيك',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 45,
-                          fontFamily: 'Mada',
-                        ),
-                      ),
+                     Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: AnimatedTextKit(
+                        animatedTexts: [
+                          TypewriterAnimatedText(
+                            '  أهلا بيك ',
+                            textStyle: const TextStyle(
+                              fontSize: 32.0,
+                              color:Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Mada',
+                            ),
+                            speed: const Duration(milliseconds: 500),
+                          ),
+                        ],
+
+                        totalRepeatCount: 4,
+                        pause: const Duration(milliseconds: 400),
+                        displayFullTextOnTap: true,
+                        stopPauseOnTap: true,
+                      )
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
