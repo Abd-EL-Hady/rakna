@@ -30,27 +30,35 @@ class _DoState extends State<Do> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                     Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: AnimatedTextKit(
-                        animatedTexts: [
-                          TypewriterAnimatedText(
-                            '  أهلا بيك ',
-                            textStyle: const TextStyle(
-                              fontSize: 32.0,
-                              color:Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Mada',
+                    Container(
+                      height: 70,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: AnimatedTextKit(
+                          animatedTexts: [
+                            FadeAnimatedText(
+                              ' أهلا',
+                              duration: const Duration(seconds: 1),
+                              textStyle: const TextStyle(
+                                fontSize: 32.0,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Mada',
+                                color: Colors.white,
+                              ),
                             ),
-                            speed: const Duration(milliseconds: 500),
-                          ),
-                        ],
-
-                        totalRepeatCount: 4,
-                        pause: const Duration(milliseconds: 400),
-                        displayFullTextOnTap: true,
-                        stopPauseOnTap: true,
-                      )
+                            ScaleAnimatedText(
+                              'بيك',
+                              duration: const Duration(seconds: 1),
+                              textStyle: const TextStyle(
+                                fontSize: 32.0,
+                                fontFamily: 'Mada',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -156,11 +164,14 @@ class _DoState extends State<Do> {
                                   Colors.white,
                                 ),
                               ),
-                              onPressed: () {  Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const book_history() ),
-                              );},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const book_history()),
+                                );
+                              },
                               child: const Text(
                                 'سجل ركناتك',
                                 textAlign: TextAlign.center,
