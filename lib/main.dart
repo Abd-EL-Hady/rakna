@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rakna/busniss.dart';
+import 'package:rakna/connection.dart';
 
 import 'ui/login_page.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Business()..getLicense()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
