@@ -1,9 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:rakna/UI/book_history.dart';
+import 'package:rakna/UI/contact_us.dart';
 import 'package:rakna/ui/book_page.dart';
 import 'package:rakna/ui/profile_page.dart';
-import 'book_history.dart';
-import 'contact_us.dart';
 
 class Do extends StatefulWidget {
   const Do({Key? key}) : super(key: key);
