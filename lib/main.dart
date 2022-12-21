@@ -4,12 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rakna/busniss.dart';
 import 'package:rakna/connection.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ui/login_page.dart';
 
 void main() async {
-  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-  firebaseMessaging.getToken();
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
+
+  FirebaseMessaging.instance.getToken().then((value) {
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setString('token', value!);
+    });
+  });
+
   runApp(
     MultiProvider(
       providers: [
