@@ -2,16 +2,20 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:rakna/model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Connection {
-  Future showLicenseData(String token) async {
+  Future showLicenseData(String id) async {
     Dio dio = Dio();
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     try {
       print('start');
 
       var response = await dio.get(
-          "https://raknah.000webhostapp.com/api/user/license/show/202020202");
+          "https://raknah.000webhostapp.com/api/user/license/show/" +
+              prefs.getString('token')!);
 
       print(response.data);
       print(response.statusCode.toString());
