@@ -26,9 +26,9 @@ class Connection {
     }
   }
 
-  deleteData(String token) async {
+  deleteLicenseData(String token,String id) async {
     Dio dio = Dio();
-
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     String base_url = "https://raknah.000webhostapp.com/api/";
 
     var response = await dio.delete(

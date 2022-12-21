@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:rakna/model.dart';
 
-import 'connection.dart';
+import 'Connection/License.dart';
 
 class Business extends ChangeNotifier {
   List<License> license = [];

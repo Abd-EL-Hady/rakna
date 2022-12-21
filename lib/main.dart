@@ -3,25 +3,20 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rakna/busniss.dart';
-import 'package:rakna/connection.dart';
+import 'package:rakna/Connection/License.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ui/login_page.dart';
-
+String base_url = 'https://raknah.000webhostapp.com/api/';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
 
-  FirebaseMessaging.instance.getToken().then((value) {
-    SharedPreferences.getInstance().then((prefs) {
-      prefs.setString('token', value!);
-    });
-  });
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => Business()..getLicense()),
+        ChangeNotifierProvider(create: (context) => Business()..getLicense("id")),
       ],
       child: const MyApp(),
     ),
