@@ -5,9 +5,9 @@ import 'connection.dart';
 
 class Business extends ChangeNotifier {
   List<License> license = [];
-  getLicense() async {
+  getLicense(String id) async {
     try {
-      var response = await Connection().showLicenseData('1010101010');
+      var response = await Connection().showLicenseData(id);
       license =
           response.map<License>((json) => License.fromJson(json)).toList();
       print(license[0].licenseNumber);
