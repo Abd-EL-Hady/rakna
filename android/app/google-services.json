@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "901270565634",
+    "firebase_url": "https://rakna-3888c-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "rakna-3888c",
+    "storage_bucket": "rakna-3888c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901270565634:android:aaede3d1dd34346380c81b",
+        "android_client_info": {
+          "package_name": "com.example.rakna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901270565634-metnvb2gf3eku1dl63fr9is54gon6f5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA617JP-itXngOZsUpLxFpgHiChUuVSzSo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901270565634-metnvb2gf3eku1dl63fr9is54gon6f5t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
