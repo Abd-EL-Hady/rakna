@@ -32,10 +32,24 @@ class Connection {
     String base_url = "https://raknah.000webhostapp.com/api/";
 
     var response = await dio.delete(
-        base_url + 'user/payment/show/' + token + '/' + token,
+        base_url + 'user/license/delete/' + id + '/' + token,
         options: Options(headers: {}));
 
     print(response.data);
     print(response.statusCode);
   }
+
+  addLicenseData(String token,String id) async {
+    Dio dio = Dio();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String base_url = "https://raknah.000webhostapp.com/api/";
+
+    var response = await dio.post(
+        base_url + 'user/license/add/' + id + '/' + token,
+        options: Options(headers: {}));
+
+    print(response.data);
+    print(response.statusCode);
+  }
+
 }

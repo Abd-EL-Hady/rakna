@@ -10,7 +10,7 @@ class UserConnection{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FirebaseMessaging.instance.getToken().then((value) {
 
-    prefs.setString('token', value!);});
+      prefs.setString('token', value!);});
 
 
 
@@ -44,7 +44,7 @@ class UserConnection{
 
       var response = await dio.post(
           base_url + 'user/signup'
-              ,queryParameters: {"first_name": first_name ,"last_name" : last_name, "mobile_number" : mobile_number,"city" : city , "SSN": SSN, "token": prefs.getString('token')!, "email" : email , "password" : password});
+          ,queryParameters: {"first_name": first_name ,"last_name" : last_name, "mobile_number" : mobile_number,"city" : city , "SSN": SSN, "token": prefs.getString('token')!, "email" : email , "password" : password});
 
       print(response.data);
       print(response.statusCode.toString());
