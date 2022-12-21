@@ -9,6 +9,9 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  TextEditingController countController = TextEditingController()..text = '0';
+  TextEditingController priceController = TextEditingController()..text = '0';
+  TextEditingController totalController = TextEditingController()..text = '0';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,6 +28,36 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 Column(
                   children: [
+                    TextFormField(
+                      controller: countController,
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          try {
+                            totalController.text =
+                                (int.parse(countController.text) *
+                                        int.parse(priceController.text))
+                                    .toString();
+                          } catch (e) {
+                            print(e);
+                          }
+                        });
+                      },
+                    ),
+                    TextFormField(
+                      controller: priceController,
+                      onChanged: (value) {
+                        setState(() {
+                          totalController.text =
+                              (int.parse(countController.text) *
+                                      int.parse(priceController.text))
+                                  .toString();
+                        });
+                      },
+                    ),
+                    TextFormField(
+                      controller: totalController,
+                    ),
                     const Padding(
                       padding: EdgeInsets.only(top: 10.0),
                       child: Text(
