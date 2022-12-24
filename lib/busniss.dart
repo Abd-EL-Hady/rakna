@@ -10,6 +10,7 @@ import 'UI/home_page.dart';
 
 class Business extends ChangeNotifier {
   List<License> license = [];
+
   getLicense(String id) async {
     try {
       var response = await Connection().showLicenseData(id);
@@ -21,7 +22,8 @@ class Business extends ChangeNotifier {
       print(e);
     }
   }
-  login(String email,String password,BuildContext context) async {
+
+  login(String email, String password, BuildContext context) async {
     try {
       var response = await UserConnection().login(email, password);
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -39,6 +41,33 @@ class Business extends ChangeNotifier {
     } catch (e) {
       print(e);
     }
+  }
 
+  signup(String email, String password, String first_name, String last_name,
+      String mobile_number, String city, int SSN, BuildContext context) async {
+    try {
+      var response = await UserConnection().signUp(
+          email,
+          password,
+          first_name,
+          last_name,
+          mobile_number,
+          city,
+          SSN);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('id', response['id']);
+      prefs.setString('email', response['email']);
+      prefs.setString('first_name', response['first_name']);
+      prefs.setString('last_name', response['last_name']);
+      prefs.setString('mobile_number', response['mobile_number']);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Homepage()),
+      );
+
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
   }
 }
