@@ -18,7 +18,7 @@ class UserConnection{
       print('start');
 
       var response = await dio.get(
-          base_url + 'user/login/"' + email + '/' + password + '/' +
+          base_url + 'user/login/' + email + '/' + password + '/' +
               prefs.getString('token')!);
 
       print(response.data);
