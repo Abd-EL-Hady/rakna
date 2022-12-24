@@ -10,7 +10,7 @@ import 'ui/login_page.dart';
 String base_url = 'https://raknah.000webhostapp.com/api/';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
 
 
   runApp(

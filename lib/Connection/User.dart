@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 
 class UserConnection{
-  Future Login(String email, String password) async {
+  Future login(String email, String password) async {
     Dio dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FirebaseMessaging.instance.getToken().then((value) {

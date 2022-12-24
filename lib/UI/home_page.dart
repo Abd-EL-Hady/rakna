@@ -1,18 +1,19 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rakna/ui/book_page.dart';
 import 'package:rakna/ui/profile_page.dart';
 import 'book_history.dart';
 import 'contact_us.dart';
 
-class Do extends StatefulWidget {
-  const Do({Key? key}) : super(key: key);
+class Homepage extends StatefulWidget {
+  const Homepage({Key? key}) : super(key: key);
 
   @override
-  State<Do> createState() => _DoState();
+  State<Homepage> createState() => _HomepageState();
 }
 
-class _DoState extends State<Do> {
+class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
