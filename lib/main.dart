@@ -6,17 +6,18 @@ import 'package:rakna/busniss.dart';
 import 'package:rakna/Connection/License.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'firebase_options.dart';
 import 'ui/login_page.dart';
 String base_url = 'https://raknah.000webhostapp.com/api/';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
 
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => Business()..getLicense("id")),
+        ChangeNotifierProvider(create: (context) => Business())
       ],
       child: const MyApp(),
     ),
