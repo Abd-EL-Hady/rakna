@@ -6,17 +6,20 @@ import 'package:rakna/busniss.dart';
 import 'package:rakna/connection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'firebase_options.dart';
 import 'ui/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  FirebaseMessaging.instance.getToken().then((value) {
-    SharedPreferences.getInstance().then((prefs) {
-      prefs.setString('token', value!);
-    });
-  });
+  // FirebaseMessaging.instance.getToken().then((value) {
+  //   SharedPreferences.getInstance().then((prefs) {
+  //     prefs.setString('token', value!);
+  //   });
+  // });
 
   runApp(
     MultiProvider(

@@ -12,10 +12,11 @@ class Connection {
 
     try {
       print('start');
-
       var response = await dio.get(
-          "https://raknah.000webhostapp.com/api/user/license/show/" +
-              prefs.getString('token')!);
+        "https://raknah.000webhostapp.com/api/user/license/show/" +
+            prefs.getString('token')!,
+        queryParameters: {'id': id},
+      );
 
       print(response.data);
       print(response.statusCode.toString());
