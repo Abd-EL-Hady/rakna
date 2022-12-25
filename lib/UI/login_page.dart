@@ -173,7 +173,8 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           onPressed: () {
                            Provider.of<Business>(context, listen: false).login(
-                              emailController.text, passwordController.text,context);
+                              emailController.value.text, passwordController.value.text,context);
+
 
                           },
                           child: const Text(

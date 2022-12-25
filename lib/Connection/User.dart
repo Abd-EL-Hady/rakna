@@ -16,10 +16,13 @@ class UserConnection{
 
     try {
       print('start');
+      print(email);
+      print(password);
+      print(prefs.getString('token')!);
+
 
       var response = await dio.get(
-          base_url + 'user/login/' + email + '/' + password + '/' +
-              prefs.getString('token')!);
+          "https://raknah.000webhostapp.com/api/user/login/${email}/${password}/${prefs.getString('token')!}}");
 
       print(response.data);
       print(response.statusCode.toString());
