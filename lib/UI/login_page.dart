@@ -13,6 +13,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -99,6 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
+                        controller: emailController,
                         style: TextStyle(
                           color: Colors.orange[800],
                         ),
@@ -124,6 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
+                        controller: passwordController,
                         cursorRadius: const Radius.circular(25),
                         cursorColor: Colors.orange[800],
                         style: TextStyle(color: Colors.orange[800]),
@@ -168,11 +172,10 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Do()),
-                            );
+                           Provider.of<Business>(context, listen: false).login(
+                              emailController.value.text, passwordController.value.text,context);
+
+
                           },
                           child: const Text(
                             'تسجيل الدخول',

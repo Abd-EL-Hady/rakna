@@ -12,6 +12,10 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController countController = TextEditingController()..text = '0';
   TextEditingController priceController = TextEditingController()..text = '0';
   TextEditingController totalController = TextEditingController()..text = '0';
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController labelController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -97,6 +101,7 @@ class _SignupPageState extends State<SignupPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
+                        controller: emailController,
                         style: TextStyle(
                           color: Colors.orange[600],
                         ),
@@ -119,6 +124,7 @@ class _SignupPageState extends State<SignupPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
+                        controller: passwordController,
                         cursorRadius: const Radius.circular(25),
                         cursorColor: Colors.orange[600],
                         style: TextStyle(color: Colors.orange[600]),
@@ -146,6 +152,7 @@ class _SignupPageState extends State<SignupPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
+                        controller: passwordController,
                         style: TextStyle(
                           color: Colors.orange[600],
                         ),
@@ -171,6 +178,7 @@ class _SignupPageState extends State<SignupPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
+                        controller: labelController,
                         style: TextStyle(
                           color: Colors.orange[600],
                         ),
@@ -189,6 +197,7 @@ class _SignupPageState extends State<SignupPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
+                        controller: phoneController,
                         cursorRadius: const Radius.circular(25),
                         cursorColor: Colors.orange[600],
                         style: TextStyle(color: Colors.orange[600]),
@@ -225,7 +234,9 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+
+                          },
                           icon: const Icon(
                             Icons.check_box_outline_blank,
                             color: Colors.white,
