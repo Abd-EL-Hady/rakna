@@ -39,7 +39,21 @@ class Business extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      print(e);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Wrong Email or Password'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('OK'))
+              ],
+            );
+          });
     }
   }
 
@@ -47,13 +61,7 @@ class Business extends ChangeNotifier {
       String mobile_number, String city, int SSN, BuildContext context) async {
     try {
       var response = await UserConnection().signUp(
-          email,
-          password,
-          first_name,
-          last_name,
-          mobile_number,
-          city,
-          SSN);
+          email, password, first_name, last_name, mobile_number, city, SSN);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('id', response['id']);
       prefs.setString('email', response['email']);
