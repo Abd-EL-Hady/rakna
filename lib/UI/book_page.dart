@@ -107,8 +107,8 @@ class _BookState extends State<Book> {
                         ),
                       ),
                       const Positioned(
-                        left: 20,
-                        top: 10,
+                        left: 100,
+                        top: 85,
                         child: Text(
                           'إحجز ',
                           style: TextStyle(
@@ -119,8 +119,8 @@ class _BookState extends State<Book> {
                         ),
                       ),
                       Positioned(
-                        left: 10,
-                        top: 70,
+                        left: 75,
+                        top: 140,
                         child: RichText(
                           text: const TextSpan(
                             text: 'ركنتك ',

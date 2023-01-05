@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'ui/login_page.dart';
+import 'ui/contact_us.dart';
 
 String base_url = 'https://raknah.000webhostapp.com/api/';
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

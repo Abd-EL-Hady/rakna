@@ -30,8 +30,8 @@ class _book_historyState extends State<book_history> {
                       ),
                     ),
                     const Positioned(
-                      left: 20,
-                      top: 40,
+                      left: 100,
+                      top: 90,
                       child: Text(
                         'سجل ',
                         style: TextStyle(
@@ -43,8 +43,8 @@ class _book_historyState extends State<book_history> {
                       ),
                     ),
                     Positioned(
-                      left: 20,
-                      top: 100,
+                      left: 65,
+                      top: 145,
                       child: RichText(
                         text: const TextSpan(
                           text: " ركناتك ",

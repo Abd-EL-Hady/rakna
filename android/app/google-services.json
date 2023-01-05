@@ -1,13 +1,14 @@
 {
   "project_info": {
     "project_number": "901270565634",
+    "firebase_url": "https://rakna-3888c-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "rakna-3888c",
     "storage_bucket": "rakna-3888c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:901270565634:android:ab665d5d0a3a351e80c81b",
+        "mobilesdk_app_id": "1:901270565634:android:aaede3d1dd34346380c81b",
         "android_client_info": {
           "package_name": "com.example.rakna"
         }
@@ -29,6 +30,13 @@
             {
               "client_id": "901270565634-metnvb2gf3eku1dl63fr9is54gon6f5t.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "901270565634-d23k7r0dh220gsk0r9i1rasc1gof7icm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rakna"
+              }
             }
           ]
         }

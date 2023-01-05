@@ -159,8 +159,8 @@ class _Profile_PageState extends State<Profile_Page> {
                           ),
                         ),
                         const Positioned(
-                          right: 20,
-                          bottom: 80,
+                          right: 110,
+                          bottom: 60,
                           child: Text(
                             'الملف ',
                             style: TextStyle(
@@ -171,8 +171,8 @@ class _Profile_PageState extends State<Profile_Page> {
                           ),
                         ),
                         Positioned(
-                          right: 20,
-                          bottom: 15,
+                          right: 135,
+                          bottom: 10,
                           child: RichText(
                             text: const TextSpan(
                               text: 'الشخصي',
