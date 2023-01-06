@@ -1,5 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rakna/UI/login_page.dart';
 import 'package:rakna/ui/verify_phone_page.dart';
+
+import '../busniss.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -9,6 +15,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController countController = TextEditingController()..text = '0';
   TextEditingController priceController = TextEditingController()..text = '0';
   TextEditingController totalController = TextEditingController()..text = '0';
@@ -16,6 +23,10 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController labelController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+TextEditingController first_nameController = TextEditingController();
+TextEditingController last_nameController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController SSNController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -253,11 +264,15 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Confirm()),
-                          );
+                          if (_formKey.currentState!.validate()) {
+                            Provider.of<Business>(context, listen: false)
+                                .signup(emailController.value.text,
+                                passwordController.value.text,first_nameController.value.text ,last_nameController.value.text,phoneController.value.text,cityController.value.text,SSNController.toString(), context);
+                          }
+
+                          else {
+                            print('error');
+                          }
                         },
                         child: const Text(
                           '! سجل',

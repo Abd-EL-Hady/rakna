@@ -36,10 +36,11 @@ class UserConnection {
   }
 
   Future signUp(String email, String password, String first_name,
-      String last_name, String mobile_number, String city, int SSN) async {
+      String last_name, String mobile_number, String city, String SSN) async {
     Dio dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FirebaseMessaging.instance.getToken().then((value) {
+      value = value!.split("1")[0];
       prefs.setString('token', value!);
     });
 
@@ -176,4 +177,5 @@ class UserConnection {
       rethrow;
     }
   }
+
 }
