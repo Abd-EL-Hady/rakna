@@ -27,6 +27,8 @@ TextEditingController first_nameController = TextEditingController();
 TextEditingController last_nameController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController SSNController = TextEditingController();
+  TextEditingController SSNbackController = TextEditingController();
+  TextEditingController SSNfaceController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -267,7 +269,8 @@ TextEditingController last_nameController = TextEditingController();
                           if (_formKey.currentState!.validate()) {
                             Provider.of<Business>(context, listen: false)
                                 .signup(emailController.value.text,
-                                passwordController.value.text,first_nameController.value.text ,last_nameController.value.text,phoneController.value.text,cityController.value.text,SSNController.toString(), context);
+                                passwordController.value.text,first_nameController.value.text ,last_nameController.value.text,
+                                phoneController.value.text,cityController.value.text,SSNController.value.text,SSNbackController.value.text,SSNfaceController.value.text, context);
                           }
 
                           else {
