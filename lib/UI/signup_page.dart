@@ -266,8 +266,9 @@ class _SignupPageState extends State<SignupPage> {
                         onPressed: () {
                           if (emailController.text.contains('@') &&
                               passwordController.text.length > 6 &&
-                              labelController.text.length > 1 &&
-                              phoneController.text.length > 6) {
+                              labelController.text.length >= 1 &&
+                              phoneController.text.length > 6 /*&& first_nameController.text.isNotEmpty && last_nameController.text.isNotEmpty && SSNController.text.isNotEmpty && SSNbackController.value.text.isNotEmpty
+                          && SSNfaceController.value.text.isNotEmpty*/)    {
                             Provider.of<Business>(context, listen: false)
                                 .signup(
                                     emailController.value.text,
