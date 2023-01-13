@@ -68,10 +68,10 @@ class Business extends ChangeNotifier {
       prefs.setString('first_name', response['first_name']);
       prefs.setString('last_name', response['last_name']);
       prefs.setString('mobile_number', response['mobile_number']);
-      Navigator.push(
+      /*Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Homepage()),
-      );
+      );*/
 
       notifyListeners();
     } catch (e) {

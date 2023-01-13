@@ -23,8 +23,8 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController labelController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-TextEditingController first_nameController = TextEditingController();
-TextEditingController last_nameController = TextEditingController();
+  TextEditingController first_nameController = TextEditingController();
+  TextEditingController last_nameController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController SSNController = TextEditingController();
   TextEditingController SSNbackController = TextEditingController();
@@ -247,9 +247,7 @@ TextEditingController last_nameController = TextEditingController();
                           ),
                         ),
                         IconButton(
-                          onPressed: () {
-
-                          },
+                          onPressed: () {},
                           icon: const Icon(
                             Icons.check_box_outline_blank,
                             color: Colors.white,
@@ -266,14 +264,23 @@ TextEditingController last_nameController = TextEditingController();
                           ),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
+                          if (emailController.text.contains('@') &&
+                              passwordController.text.length > 6 &&
+                              labelController.text.length > 1 &&
+                              phoneController.text.length > 6) {
                             Provider.of<Business>(context, listen: false)
-                                .signup(emailController.value.text,
-                                passwordController.value.text,first_nameController.value.text ,last_nameController.value.text,
-                                phoneController.value.text,cityController.value.text,SSNController.value.text,SSNbackController.value.text,SSNfaceController.value.text, context);
-                          }
-
-                          else {
+                                .signup(
+                                    emailController.value.text,
+                                    passwordController.value.text,
+                                    first_nameController.value.text,
+                                    last_nameController.value.text,
+                                    phoneController.value.text,
+                                    cityController.value.text,
+                                    SSNController.value.text,
+                                    SSNbackController.value.text,
+                                    SSNfaceController.value.text,
+                                    context);
+                          } else {
                             print('error');
                           }
                         },
