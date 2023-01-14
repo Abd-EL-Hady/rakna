@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:rakna/UI/login_page.dart';
 import 'package:rakna/ui/verify_phone_page.dart';
@@ -133,6 +134,94 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                         ),
                       ),
+                    ),Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: first_nameController,
+                        style: TextStyle(
+                          color: Colors.orange[600],
+                        ),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          labelText: 'الاسم الاول ',
+                          labelStyle: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Mada',
+                          ),
+                          suffix: Icon(
+                            Icons.email,
+                            color: Colors.orange[600],
+                          ),
+                        ),
+                      ),
+                    ),Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: last_nameController,
+                        style: TextStyle(
+                          color: Colors.orange[600],
+                        ),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          labelText: 'الاسم الاخير ',
+                          labelStyle: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Mada',
+                          ),
+                          suffix: Icon(
+                            Icons.email,
+                            color: Colors.orange[600],
+                          ),
+                        ),
+                      ),
+                    ),Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: SSNController,
+                        style: TextStyle(
+                          color: Colors.orange[600],
+                        ),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          labelText: 'رقم البطاقة ',
+                          labelStyle: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Mada',
+                          ),
+                          suffix: Icon(
+                            Icons.email,
+                            color: Colors.orange[600],
+                          ),
+                        ),
+                      ),
+                    ),Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: cityController,
+                        style: TextStyle(
+                          color: Colors.orange[600],
+                        ),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          labelText: 'المدينة ',
+                          labelStyle: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Mada',
+                          ),
+                          suffix: Icon(
+                            Icons.email,
+                            color: Colors.orange[600],
+                          ),
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -184,25 +273,6 @@ class _SignupPageState extends State<SignupPage> {
                               color: Colors.orange[600],
                             ),
                             onPressed: () {},
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        controller: labelController,
-                        style: TextStyle(
-                          color: Colors.orange[600],
-                        ),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          labelText: 'رقم لوحة السيارة ',
-                          labelStyle: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Mada',
                           ),
                         ),
                       ),
@@ -266,7 +336,7 @@ class _SignupPageState extends State<SignupPage> {
                         onPressed: () {
                           if (emailController.text.contains('@') &&
                               passwordController.text.length > 6 &&
-                              labelController.text.length >= 1 &&
+                              /*labelController.text.length >= 1 &&*/
                               phoneController.text.length > 6 /*&& first_nameController.text.isEmpty && last_nameController.text.isEmpty && SSNController.text.isEmpty && SSNbackController.value.text.isEmpty
                           && SSNfaceController.value.text.isEmpty*/)    {
                             Provider.of<Business>(context, listen: false)
