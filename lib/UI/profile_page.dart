@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rakna/busniss.dart';
 
 class Profile_Page extends StatefulWidget {
   const Profile_Page({Key? key}) : super(key: key);
@@ -136,11 +138,9 @@ class _Profile_PageState extends State<Profile_Page> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Profile_Page()),
-                          );
+/*                          Provider.of<Business>(context, listen: false)
+                              .updateDetails();*/
+
                         },
                         child: const Text(
                           'تغيير البيانات ',

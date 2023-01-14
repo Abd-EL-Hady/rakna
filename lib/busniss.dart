@@ -57,11 +57,74 @@ class Business extends ChangeNotifier {
     }
   }
 
-  signup(String email, String password, String first_name, String last_name,
-      String mobile_number, String city, String SSN,String SSN_reference_back,String SSN_reference_face, BuildContext context) async {
+  signup(
+      String email,
+      String password,
+      String first_name,
+      String last_name,
+      String mobile_number,
+      String city,
+      String SSN,
+      String SSN_reference_back,
+      String SSN_reference_face,
+      BuildContext context) async {
     try {
       var response = await UserConnection().signUp(
-          email, password, first_name, last_name, mobile_number, city, SSN , SSN_reference_back, SSN_reference_face);
+          email,
+          password,
+          first_name,
+          last_name,
+          mobile_number,
+          city,
+          SSN,
+          SSN_reference_back,
+          SSN_reference_face);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('id', response['id']);
+      prefs.setString('email', response['email']);
+      prefs.setString('first_name', response['first_name']);
+      prefs.setString('last_name', response['last_name']);
+      prefs.setString('mobile_number', response['mobile_number']);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Homepage()),
+      );
+
+      notifyListeners();
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Invalid Credentials'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('OK'))
+              ],
+            );
+          });
+      print(e);
+    }
+  }
+
+  updateDetails(
+      String id,
+      String token,
+      String email,
+      String password,
+      String first_name,
+      String last_name,
+      String mobile_number,
+      String city,
+      String SSN,
+      BuildContext context) async {
+    try {
+      var response = await UserConnection().updateDetails(id, token, email,
+          password, first_name, last_name, mobile_number, city, SSN);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('id', response['id']);
       prefs.setString('email', response['email']);

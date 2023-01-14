@@ -267,8 +267,8 @@ class _SignupPageState extends State<SignupPage> {
                           if (emailController.text.contains('@') &&
                               passwordController.text.length > 6 &&
                               labelController.text.length >= 1 &&
-                              phoneController.text.length > 6 /*&& first_nameController.text.isNotEmpty && last_nameController.text.isNotEmpty && SSNController.text.isNotEmpty && SSNbackController.value.text.isNotEmpty
-                          && SSNfaceController.value.text.isNotEmpty*/)    {
+                              phoneController.text.length > 6 /*&& first_nameController.text.isEmpty && last_nameController.text.isEmpty && SSNController.text.isEmpty && SSNbackController.value.text.isEmpty
+                          && SSNfaceController.value.text.isEmpty*/)    {
                             Provider.of<Business>(context, listen: false)
                                 .signup(
                                     emailController.value.text,
@@ -281,6 +281,16 @@ class _SignupPageState extends State<SignupPage> {
                                     SSNbackController.value.text,
                                     SSNfaceController.value.text,
                                     context);
+                                /*print("email "+emailController.value.text);
+                                print("password "+passwordController.value.text);
+                                print("first_name " +first_nameController.value.text);
+                                print("last_name " +last_nameController.value.text);
+                                print("phone " +phoneController.value.text);
+                                print("city " +cityController.value.text);
+                                print("SSN " +SSNController.value.text);
+                                print("SSNBACK "+SSNbackController.value.text);
+                                print("SSNFACE "+SSNfaceController.value.text);
+                                print("Label "+labelController.value.text);*/
                           } else {
                             print('error');
                           }

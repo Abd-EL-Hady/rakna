@@ -35,8 +35,16 @@ class UserConnection {
     }
   }
 
-  Future signUp(String email, String password, String first_name,
-      String last_name, String mobile_number, String city, String SSN , String SSN_reference_back , String SSN_reference_face) async {
+  Future signUp(
+      String email,
+      String password,
+      String first_name,
+      String last_name,
+      String mobile_number,
+      String city,
+      String SSN,
+      String SSN_reference_back,
+      String SSN_reference_face) async {
     Dio dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FirebaseMessaging.instance.getToken().then((value) {
@@ -79,7 +87,7 @@ class UserConnection {
       String last_name,
       String mobile_number,
       String city,
-      int SSN) async {
+      String SSN) async {
     Dio dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FirebaseMessaging.instance.getToken().then((value) {
@@ -179,5 +187,4 @@ class UserConnection {
       rethrow;
     }
   }
-
 }
