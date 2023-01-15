@@ -295,6 +295,12 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                         ),
                       ),
+                    ),GestureDetector(
+                      onTap: () {},
+                      child: Container(child: Image.asset('images/SSNFACE.png',width: 300,height: 50,),),
+                    ),GestureDetector(
+                      onTap: () {},
+                      child: Container(child: Image.asset('images/SSNBACK.png',width: 300,height: 50,),),
                     ),
                     TextButton(
                       onPressed: () {},
