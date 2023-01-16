@@ -5,7 +5,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:rakna/UI/login_page.dart';
 import 'package:rakna/ui/verify_phone_page.dart';
+import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:path/path.dart';
 import '../busniss.dart';
 
 class SignupPage extends StatefulWidget {
@@ -16,6 +22,53 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
+
+  File? _photo;
+  final ImagePicker _picker = ImagePicker();
+
+  Future imgFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _photo = File(pickedFile.path);
+        uploadFile();
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  Future imgFromCamera() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _photo = File(pickedFile.path);
+        uploadFile();
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  Future uploadFile() async {
+    if (_photo == null) return;
+    final fileName = basename(_photo!.path);
+    final destination = 'files/$fileName';
+
+    try {
+      final ref = firebase_storage.FirebaseStorage.instance
+          .ref(destination)
+          .child('file/');
+      await ref.putFile(_photo!);
+    } catch (e) {
+      print('error occured');
+    }
+  }
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController countController = TextEditingController()..text = '0';
   TextEditingController priceController = TextEditingController()..text = '0';
@@ -296,10 +349,15 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ),
                     ),GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        imgFromGallery();
+                      },
                       child: Container(child: Image.asset('images/SSNFACE.png',width: 300,height: 50,),),
                     ),GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        imgFromGallery();
+
+                        },
                       child: Container(child: Image.asset('images/SSNBACK.png',width: 300,height: 50,),),
                     ),
                     TextButton(
@@ -342,9 +400,8 @@ class _SignupPageState extends State<SignupPage> {
                         onPressed: () {
                           if (emailController.text.contains('@') &&
                               passwordController.text.length > 6 &&
-                              /*labelController.text.length >= 1 &&*/
-                              phoneController.text.length > 6 /*&& first_nameController.text.isEmpty && last_nameController.text.isEmpty && SSNController.text.isEmpty && SSNbackController.value.text.isEmpty
-                          && SSNfaceController.value.text.isEmpty*/)    {
+                              phoneController.text.length > 6 && first_nameController.text.isNotEmpty && last_nameController.text.isNotEmpty && SSNController.text.isNotEmpty && SSNbackController.value.text.isEmpty
+                          && SSNfaceController.value.text.isEmpty)    {
                             Provider.of<Business>(context, listen: false)
                                 .signup(
                                     emailController.value.text,
