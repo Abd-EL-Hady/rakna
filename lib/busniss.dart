@@ -10,6 +10,12 @@ import 'UI/home_page.dart';
 
 class Business extends ChangeNotifier {
   List<License> license = [];
+  bool approved = false;
+
+  flipApproved() {
+    approved = !approved;
+    notifyListeners();
+  }
 
   getLicense(String id) async {
     try {
@@ -57,11 +63,28 @@ class Business extends ChangeNotifier {
     }
   }
 
-  signup(String email, String password, String first_name, String last_name,
-      String mobile_number, String city, String SSN,String SSN_reference_back,String SSN_reference_face, BuildContext context) async {
+  signup(
+      String email,
+      String password,
+      String first_name,
+      String last_name,
+      String mobile_number,
+      String city,
+      String SSN,
+      String SSN_reference_back,
+      String SSN_reference_face,
+      BuildContext context) async {
     try {
       var response = await UserConnection().signUp(
-          email, password, first_name, last_name, mobile_number, city, SSN , SSN_reference_back, SSN_reference_face);
+          email,
+          password,
+          first_name,
+          last_name,
+          mobile_number,
+          city,
+          SSN,
+          SSN_reference_back,
+          SSN_reference_face);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('id', response['id']);
       prefs.setString('email', response['email']);
