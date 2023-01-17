@@ -46,6 +46,8 @@ dependencies:
   firebase_messaging: ^14.1.4
   cloud_firestore: ^4.3.1
   firebase_auth: ^4.0.0
+  image_picker: ^0.8.6
+  firebase_storage: ^11.0.10
 
 
 dev_dependencies:
@@ -77,3 +79,11 @@ flutter:
     - family: Mada
       fonts:
         - asset: fonts/Mada-Light.ttf
+    - family: cairo
+      fonts:
+        - asset: fonts/Cairo-Light.ttf
+        - asset: fonts/Cairo-Regular.ttf
+        - asset: fonts/Cairo-SemiBold.ttf
+        - asset: fonts/Cairo-Bold.ttf
+        - asset: fonts/Cairo-ExtraBold.ttf
+        

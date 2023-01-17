@@ -86,11 +86,11 @@ class Business extends ChangeNotifier {
           SSN_reference_back,
           SSN_reference_face);
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('id', response['id']);
+      prefs.setString('id', response['id'].toString());
       prefs.setString('email', response['email']);
       prefs.setString('first_name', response['first_name']);
       prefs.setString('last_name', response['last_name']);
-      prefs.setString('mobile_number', response['mobile_number']);
+      prefs.setString('mobile_number', response['mobile_number'].toString());
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Homepage()),

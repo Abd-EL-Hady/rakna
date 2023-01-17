@@ -87,7 +87,7 @@ class UserConnection {
       String last_name,
       String mobile_number,
       String city,
-      int SSN) async {
+      String SSN) async {
     Dio dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FirebaseMessaging.instance.getToken().then((value) {
