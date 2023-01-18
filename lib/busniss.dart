@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rakna/Connection/User.dart';
+import 'package:rakna/Connection/Reservation.dart';
 import 'package:rakna/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,6 +11,7 @@ import 'UI/home_page.dart';
 
 class Business extends ChangeNotifier {
   List<License> license = [];
+  List<Reservation> reservation = [];
 
   getLicense(String id) async {
     try {
@@ -156,4 +158,18 @@ class Business extends ChangeNotifier {
       print(e);
     }
   }
+
+  getReservation () async {
+    try {
+      var response = await ReservConnection().showReservData();
+      reservation =
+          response.map<Reservation>((json) => Reservation.fromJson(json)).toList();
+      print(reservation);
+      notifyListeners();
+    }
+    catch (e) {
+      print(e);
+    }
+  }
+
 }
