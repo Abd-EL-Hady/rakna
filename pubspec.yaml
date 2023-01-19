@@ -48,6 +48,8 @@ dependencies:
   firebase_auth: ^4.0.0
   image_picker: ^0.8.6
   firebase_storage: ^11.0.10
+  flutter_cache_manager: ^3.3.0
+  fluttertoast: ^8.1.2
 
 
 dev_dependencies:

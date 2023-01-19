@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:rakna/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Connection {
@@ -27,7 +26,7 @@ class Connection {
     }
   }
 
-  deleteLicenseData(String token,String id) async {
+  deleteLicenseData(String token, String id) async {
     Dio dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String base_url = "https://raknah.000webhostapp.com/api/";
@@ -40,7 +39,7 @@ class Connection {
     print(response.statusCode);
   }
 
-  addLicenseData(String token,String id) async {
+  addLicenseData(String token, String id) async {
     Dio dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String base_url = "https://raknah.000webhostapp.com/api/";
@@ -52,5 +51,4 @@ class Connection {
     print(response.data);
     print(response.statusCode);
   }
-
 }
