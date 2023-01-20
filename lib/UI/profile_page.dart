@@ -234,7 +234,7 @@ class _Profile_PageState extends State<Profile_Page> {
                             ),
                           ),
                           onPressed: () {
-                            if (formKey.currentState!.validate()) {
+                            if (formKey.currentState!.validate()) try {
                               Provider.of<Business>(context, listen: false)
                                   .updateDetails(
                                   emailController.text,
@@ -245,7 +245,7 @@ class _Profile_PageState extends State<Profile_Page> {
                                   cityController.text,
                                   SSNController.text,
                                   context);
-                            }else{
+                            }catch (e){
                               print('error');
                             }
                           },
