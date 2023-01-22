@@ -4,6 +4,7 @@ import 'package:rakna/Connection/Reservation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Connection/License.dart';
+import 'Connection/Payment.dart';
 import 'Model/license.dart';
 import 'Model/reservation.dart';
 import 'UI/home_page.dart';
@@ -180,5 +181,94 @@ class Business extends ChangeNotifier {
       print(e);
     }
   }
+  addLicense(
+  String license_number,
+      String license_type,
+  String license_expire_date,
+      String license_id_reference_face,
+  String license_id_reference_back,
+      String car_name,
+  String car_model,
+      String car_color,
+  String car_plates_number,
+      String car_type,
+  String car_year,
+      BuildContext context) async {
+    try {
+      var response = await Connection().addLicenseData(
+          license_number,
+          license_type,
+          license_expire_date,
+          license_id_reference_face,
+          license_id_reference_back,
+          car_name,
+          car_model,
+          car_color,
+          car_plates_number,
+          car_type,
+          car_year);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Homepage()),
+      );
+
+      notifyListeners();
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Could not add license'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('OK'))
+              ],
+            );
+          });
+      print(e);
+    }
+  }
+
+  addPayment(
+  String card_number,
+      String card_type,
+  String card_expire_date,
+      BuildContext context) async {
+    try {
+      var response = await Payment().addPayment(
+          card_number,
+          card_type,
+          card_expire_date);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Homepage()),
+      );
+
+      notifyListeners();
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Could not add payment'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('OK'))
+              ],
+            );
+          });
+      print(e);
+    }
+}
 
 }
