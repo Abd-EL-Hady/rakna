@@ -13,7 +13,7 @@ class Payment{
       print('start');
 
       var response = await dio.post(
-          base_url + 'user/payment/add/' + prefs.getString('token')!,queryParameters: {
+          base_url + 'user/payment/add/' + '/' + prefs.getString('token')!,queryParameters: {
         'card_number': card_number,
         'card_type': card_type,
         'card_expire_date': card_expire_date,
