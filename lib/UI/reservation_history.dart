@@ -5,14 +5,14 @@ import 'package:provider/provider.dart';
 
 import '../Providers/busniss.dart';
 
-class book_history extends StatefulWidget {
-  const book_history({Key? key}) : super(key: key);
+class ReservationHistory extends StatefulWidget {
+  const ReservationHistory({Key? key}) : super(key: key);
 
   @override
-  State<book_history> createState() => _book_historyState();
+  State<ReservationHistory> createState() => _ReservationHistoryState();
 }
 
-class _book_historyState extends State<book_history> {
+class _ReservationHistoryState extends State<ReservationHistory> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

@@ -12,18 +12,19 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
-import '../busniss.dart';
 
-class LicencePage extends StatefulWidget {
-  const LicencePage({Key? key}) : super(key: key);
+import '../Providers/busniss.dart';
+
+class LicensesPage extends StatefulWidget {
+  const LicensesPage({Key? key}) : super(key: key);
 
   @override
-  State<LicencePage> createState() => _LicencePageState();
+  State<LicensesPage> createState() => _LicensesPageState();
 }
 
 enum License { face, back }
 
-class _LicencePageState extends State<LicencePage> {
+class _LicensesPageState extends State<LicensesPage> {
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
 

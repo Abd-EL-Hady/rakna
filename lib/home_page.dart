@@ -130,7 +130,8 @@ class _DoState extends State<Do> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const ReservationPage()),
+                                      builder: (context) =>
+                                          const ReservationPage()),
                                 );
                               },
                               child: const Text(
@@ -169,7 +170,7 @@ class _DoState extends State<Do> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const book_history()),
+                                          const ReservationHistory()),
                                 );
                               },
                               child: const Text(
