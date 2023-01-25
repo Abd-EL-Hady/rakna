@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rakna/busniss.dart';
 import 'package:rakna/ui/signup_page.dart';
 
+import '../Providers/busniss.dart';
 import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,9 +18,9 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SafeArea(
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: SafeArea(
         child: Scaffold(
           body: SingleChildScrollView(
             child: Form(
@@ -241,15 +241,6 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       )
                     ],
-                  ),
-                  Consumer<Business>(
-                    builder: (context, value, child) {
-                      return Text(
-                          value.license.isEmpty
-                              ? 'no data'
-                              : value.license[0].licenseNumber.toString(),
-                          style: const TextStyle(color: Colors.white));
-                    },
                   ),
                 ],
               ),

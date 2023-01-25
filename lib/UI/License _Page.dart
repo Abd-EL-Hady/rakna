@@ -12,39 +12,38 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
+import '../busniss.dart';
 
-import '../Providers/busniss.dart';
-
-class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key}) : super(key: key);
+class LicencePage extends StatefulWidget {
+  const LicencePage({Key? key}) : super(key: key);
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<LicencePage> createState() => _LicencePageState();
 }
 
-enum SSN { face, back }
+enum License { face, back }
 
-class _SignupPageState extends State<SignupPage> {
+class _LicencePageState extends State<LicencePage> {
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
 
-  File? _ssnface;
-  File? _ssnback;
-  String? _ssnfaceUrl;
-  String? _ssnbackUrl;
+  File? _licenseface;
+  File? _licenseback;
+  String? _LicensefaceUrl;
+  String? _LicensebackUrl;
   bool approved = false;
 
   final ImagePicker _picker = ImagePicker();
 
-  Future imgFromGallery(SSN ssn) async {
+  Future imgFromGallery(License ssn) async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
-        if (ssn == SSN.face) {
-          _ssnface = File(pickedFile.path);
+        if (ssn == License.face) {
+          _licenseface = File(pickedFile.path);
         } else {
-          _ssnback = File(pickedFile.path);
+          _licenseback = File(pickedFile.path);
         }
       } else {
         print('No image selected.');
@@ -52,15 +51,15 @@ class _SignupPageState extends State<SignupPage> {
     });
   }
 
-  Future imgFromCamera(SSN ssn) async {
+  Future imgFromCamera(License license) async {
     final pickedFile = await _picker.pickImage(source: ImageSource.camera);
 
     setState(() {
       if (pickedFile != null) {
-        if (ssn == SSN.face) {
-          _ssnface = File(pickedFile.path);
+        if (license == License.face) {
+          _licenseface = File(pickedFile.path);
         } else {
-          _ssnback = File(pickedFile.path);
+          _licenseback = File(pickedFile.path);
         }
       } else {
         print('No image selected.');
@@ -70,23 +69,23 @@ class _SignupPageState extends State<SignupPage> {
 
   Future uploadFile(BuildContext context) async {
     try {
-      if (_ssnface != null) {
+      if (_licenseface != null) {
         firebase_storage.Reference ref =
-            firebase_storage.FirebaseStorage.instance.ref().child(
-                'ssnface/${basename(_ssnface!.path) + "-" + DateTime.now().toString()}');
-        firebase_storage.UploadTask uploadTask = ref.putFile(_ssnface!);
+        firebase_storage.FirebaseStorage.instance.ref().child(
+            'licenseface/${basename(_licenseface!.path) + "-" + DateTime.now().toString()}');
+        firebase_storage.UploadTask uploadTask = ref.putFile(_licenseface!);
         await uploadTask.whenComplete(() async {
-          _ssnfaceUrl = await ref.getDownloadURL();
+          _LicensefaceUrl = await ref.getDownloadURL();
         });
       }
-      if (_ssnback != null) {
+      if (_licenseback != null) {
         firebase_storage.Reference ref = firebase_storage
             .FirebaseStorage.instance
             .ref()
-            .child('ssnback/${basename(_ssnback!.path)}');
-        firebase_storage.UploadTask uploadTask = ref.putFile(_ssnback!);
+            .child('licenseback/${basename(_licenseback!.path)}');
+        firebase_storage.UploadTask uploadTask = ref.putFile(_licenseback!);
         await uploadTask.whenComplete(() async {
-          _ssnbackUrl = await ref.getDownloadURL();
+          _LicensebackUrl = await ref.getDownloadURL();
         });
       }
     } catch (e) {
@@ -113,17 +112,17 @@ class _SignupPageState extends State<SignupPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController repasswordController = TextEditingController();
-  TextEditingController labelController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController first_nameController = TextEditingController();
-  TextEditingController last_nameController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController SSNController = TextEditingController();
-  TextEditingController SSNbackController = TextEditingController();
-  TextEditingController SSNfaceController = TextEditingController();
+  TextEditingController license_numberController = TextEditingController();
+  TextEditingController license_typeController = TextEditingController();
+  TextEditingController license_expiration_dateController = TextEditingController();
+  TextEditingController license_id_reference_faceController = TextEditingController();
+  TextEditingController license_id_reference_backController = TextEditingController();
+  TextEditingController car_nameController = TextEditingController();
+  TextEditingController car_modelController = TextEditingController();
+  TextEditingController car_colorController = TextEditingController();
+  TextEditingController car_plates_numberController = TextEditingController();
+  TextEditingController car_typeController = TextEditingController();
+  TextEditingController car_yearController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -187,10 +186,10 @@ class _SignupPageState extends State<SignupPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          controller: emailController,
+                          controller: license_numberController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'الرجاء إدخال البريد الإلكتروني';
+                              return 'من فضلك ادخل رقم الرخصة';
                             }
                             return null;
                           },
@@ -203,7 +202,7 @@ class _SignupPageState extends State<SignupPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            labelText: 'البريد الإلكتروني ',
+                            labelText: 'رقم الرخصة',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
@@ -220,10 +219,10 @@ class _SignupPageState extends State<SignupPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          controller: first_nameController,
+                          controller: car_nameController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'الرجاء إدخال الاسم الاول';
+                              return 'من فضلك ادخل اسم السيارة';
                             }
                             return null;
                           },
@@ -235,7 +234,7 @@ class _SignupPageState extends State<SignupPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            labelText: 'الاسم الاول ',
+                            labelText: 'اسم السيارة',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
@@ -252,10 +251,10 @@ class _SignupPageState extends State<SignupPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          controller: last_nameController,
+                          controller: car_modelController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'الرجاء إدخال الاسم الاخير';
+                              return 'من فضلك ادخل موديل السيارة';
                             }
                             return null;
                           },
@@ -268,7 +267,7 @@ class _SignupPageState extends State<SignupPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            labelText: 'الاسم الاخير ',
+                            labelText: 'موديل السيارة',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
@@ -285,10 +284,10 @@ class _SignupPageState extends State<SignupPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          controller: SSNController,
+                          controller: car_plates_numberController,
                           validator: (value) {
-                            if (value!.isEmpty || value.length < 14) {
-                              return 'الرجاء إدخال رقم بطاقة الرقم القومي';
+                            if (value!.isEmpty) {
+                              return 'من فضلك ادخل رقم لوحة السيارة';
                             }
                             return null;
                           },
@@ -302,7 +301,7 @@ class _SignupPageState extends State<SignupPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            labelText: 'رقم بطاقة الرقم القومي ',
+                            labelText: 'رقم لوحة السيارة',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
@@ -319,10 +318,10 @@ class _SignupPageState extends State<SignupPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          controller: cityController,
+                          controller: car_colorController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'الرجاء إدخال المدينة';
+                              return 'من فضلك ادخل لون السيارة';
                             }
                             return null;
                           },
@@ -335,7 +334,7 @@ class _SignupPageState extends State<SignupPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            labelText: 'المدينة ',
+                            labelText: 'لون السيارة',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
@@ -352,13 +351,10 @@ class _SignupPageState extends State<SignupPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          controller: passwordController,
-                          obscureText: true,
+                          controller: license_typeController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'الرجاء إدخال كلمة السر';
-                            } else if (value.length < 6) {
-                              return 'كلمة السر يجب ان تكون اكثر من 6 احرف';
+                              return 'من فضلك ادخل نوع الرخصة';
                             }
                             return null;
                           },
@@ -373,20 +369,14 @@ class _SignupPageState extends State<SignupPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            labelText: 'كلمة السر',
+                            labelText: 'نوع الرخصة',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
                             ),
                             // hintText: 'Enter Your Password',
                             // hintStyle: TextStyle(color: Colors.orange[600]),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                Icons.visibility_off,
-                                color: Colors.orange[600],
-                              ),
-                              onPressed: () {},
-                            ),
+
                             fillColor: Colors.white24,
                             filled: true,
                           ),
@@ -395,13 +385,10 @@ class _SignupPageState extends State<SignupPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          controller: repasswordController,
-                          obscureText: true,
+                          controller: license_expiration_dateController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'الرجاء اعادة إدخال كلمة السر';
-                            } else if (value != passwordController.text) {
-                              return 'كلمة السر غير متطابقة';
+                              return 'من فضلك ادخل تاريخ انتهاء الرخصة';
                             }
                             return null;
                           },
@@ -414,18 +401,12 @@ class _SignupPageState extends State<SignupPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            labelText: 'كلمة السر تاني ',
+                            labelText: 'تاريخ انتهاء الرخصة',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
                             ),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                Icons.visibility_off,
-                                color: Colors.orange[600],
-                              ),
-                              onPressed: () {},
-                            ),
+
                             fillColor: Colors.white24,
                             filled: true,
                           ),
@@ -434,12 +415,10 @@ class _SignupPageState extends State<SignupPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          controller: phoneController,
+                          controller: car_typeController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'الرجاء إدخال رقم الموبايل';
-                            } else if (value.length < 11) {
-                              return 'رقم الموبايل غير صحيح';
+                              return 'من فضلك ادخل نوع السيارة';
                             }
                             return null;
                           },
@@ -455,7 +434,39 @@ class _SignupPageState extends State<SignupPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            labelText: 'رقم موبايلك',
+                            labelText: 'نوع السيارة',
+                            labelStyle: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'cairo',
+                            ),
+                            fillColor: Colors.white24,
+                            filled: true,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          controller: car_yearController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'من فضلك ادخل سنة السيارة';
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.phone,
+                          cursorRadius: const Radius.circular(25),
+                          cursorColor: Colors.orange[600],
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'cairo',
+                            fontSize: 20,
+                          ),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            labelText: 'سنة السيارة',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
@@ -474,18 +485,18 @@ class _SignupPageState extends State<SignupPage> {
                                 builder: (context) => AlertDialog(
                                   title: Text("اختيار الصورة"),
                                   content: Text(
-                                      "الرجاء ارفاق صورة بطاقة الرقم القومي (وجه)"),
+                                      "الرجاء ارفاق صورة الرخصة السياقية (وجه+ظهر)"),
                                   actions: [
                                     TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
-                                          imgFromGallery(SSN.face);
+                                          imgFromGallery(License.face);
                                         },
                                         child: Text('الاستديو')),
                                     TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
-                                          imgFromCamera(SSN.face);
+                                          imgFromCamera(License.face);
                                         },
                                         child: Text('الكاميرا')),
                                   ],
@@ -500,7 +511,7 @@ class _SignupPageState extends State<SignupPage> {
                               margin: const EdgeInsets.all(16),
                               padding: const EdgeInsets.all(16),
                               child: Text(
-                                'صورة بطاقة الرقم القومي (وجه)', //الصورة الشخصية
+                                'الرجاء ارفاق صورة الرخصة السياقية (وجه+ظهر)', //الصورة الشخصية
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'cairo',
@@ -509,9 +520,9 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                             ),
                           ),
-                          if (_ssnface != null)
+                          if (_licenseface != null)
                             Image.file(
-                              _ssnface!,
+                              _licenseface!,
                               width: 50,
                               height: 50,
                               fit: BoxFit.cover,
@@ -527,18 +538,18 @@ class _SignupPageState extends State<SignupPage> {
                                 builder: (context) => AlertDialog(
                                   title: Text("اختيار الصورة"),
                                   content: Text(
-                                      "الرجاء ارفاق صورة بطاقة الرقم القومي (ظهر)"),
+                                      "الرجاء ارفاق صورة الرخصة السياقية (وجه+ظهر)"),
                                   actions: [
                                     TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
-                                          imgFromGallery(SSN.back);
+                                          imgFromGallery(License.back);
                                         },
                                         child: Text('الاستديو')),
                                     TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
-                                          imgFromCamera(SSN.back);
+                                          imgFromCamera(License.back);
                                         },
                                         child: Text('الكاميرا'))
                                   ],
@@ -553,7 +564,7 @@ class _SignupPageState extends State<SignupPage> {
                               margin: const EdgeInsets.all(16),
                               padding: const EdgeInsets.all(16),
                               child: Text(
-                                'صورة بطاقة الرقم القومي (ظهر)', //الصورة الشخصية
+                                'الرجاء ارفاق صورة الرخصة السياقية (وجه+ظهر)', //الصورة الشخصية
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'cairo',
@@ -562,9 +573,9 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                             ),
                           ),
-                          if (_ssnback != null)
+                          if (_licenseface != null)
                             Image.file(
-                              _ssnback!,
+                              _licenseface!,
                               width: 50,
                               height: 50,
                               fit: BoxFit.cover,
@@ -626,72 +637,57 @@ class _SignupPageState extends State<SignupPage> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate() &&
                                 approved == true &&
-                                _ssnface != null &&
-                                _ssnback != null) {
+                                _licenseface != null &&
+                                _licenseface != null) {
                               try {
                                 await uploadFile(context);
 
                                 Provider.of<Business>(context, listen: false)
-                                    .signup(
-                                        emailController.value.text,
-                                        passwordController.value.text,
-                                        first_nameController.value.text,
-                                        last_nameController.value.text,
-                                        phoneController.value.text,
-                                        cityController.value.text,
-                                        SSNController.value.text,
-                                        _ssnbackUrl!,
-                                        _ssnfaceUrl!,
-                                        context);
-                                print("email " + emailController.value.text);
-                                print("password " +
-                                    passwordController.value.text);
-                                print("first_name " +
-                                    first_nameController.value.text);
-                                print("last_name " +
-                                    last_nameController.value.text);
-                                print("phone " + phoneController.value.text);
-                                print("city " + cityController.value.text);
-                                print("SSN " + SSNController.value.text);
-                                print(
-                                    "SSNBACK " + SSNbackController.value.text);
-                                print(
-                                    "SSNFACE " + SSNfaceController.value.text);
-                                print("Label " + labelController.value.text);
+                                    .addLicense(
+                                    license_numberController.value.text,
+                                    license_typeController.value.text,
+                                    license_expiration_dateController.value.text,
+                                    car_nameController.value.text,
+                                    car_modelController.value.text,
+                                    car_colorController.value.text,
+                                    car_plates_numberController.value.text,
+                                    car_typeController.value.text,
+                                    car_yearController.value.text,
+                                    _LicensefaceUrl!, _LicensefaceUrl!, context);
                               } catch (e) {
                                 print(e);
 
                                 showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                          title: Text("تنبيه"),
-                                          content: Text(" حدث خطأ ما" +
-                                              "/n" +
-                                              e.toString()),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text("حسنا"))
-                                          ],
-                                        ));
+                                      title: Text("تنبيه"),
+                                      content: Text(" حدث خطأ ما" +
+                                          "/n" +
+                                          e.toString()),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text("حسنا"))
+                                      ],
+                                    ));
                               }
                             } else {
                               print('error');
                               showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
-                                        title: Text("تنبيه"),
-                                        content: Text(" يجب ملئ جميع الحقول"),
-                                        actions: [
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text("حسنا"))
-                                        ],
-                                      ));
+                                    title: Text("تنبيه"),
+                                    content: Text(" يجب ملئ جميع الحقول"),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("حسنا"))
+                                    ],
+                                  ));
                             }
                           },
                           child: SizedBox(
@@ -699,7 +695,7 @@ class _SignupPageState extends State<SignupPage> {
                             height: 60,
                             child: Center(
                               child: Text(
-                                'تسجيـــل',
+                                'ﺇضافة رخصة السيارة',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'cairo',

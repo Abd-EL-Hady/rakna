@@ -1,8 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:rakna/UI/book_history.dart';
 import 'package:rakna/UI/contact_us.dart';
-import 'package:rakna/ui/book_page.dart';
+import 'package:rakna/UI/reservation_history.dart';
+import 'package:rakna/UI/reservation_page.dart';
 import 'package:rakna/ui/profile_page.dart';
 
 class Do extends StatefulWidget {
@@ -130,7 +130,7 @@ class _DoState extends State<Do> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const Book()),
+                                      builder: (context) => const ReservationPage()),
                                 );
                               },
                               child: const Text(

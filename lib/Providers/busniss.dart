@@ -1,19 +1,28 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rakna/Connection/User.dart';
-import 'package:rakna/model.dart';
+import 'package:rakna/Connection/Reservation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Connection/License.dart';
-import 'UI/home_page.dart';
+import '../Connection/License.dart';
+import '../Model/license.dart';
+import '../Model/reservation.dart';
+import '../UI/home_page.dart';
+
 
 class Business extends ChangeNotifier {
   List<License> license = [];
+  bool approved = false;
+
+  flipApproved() {
+    approved = !approved;
+    notifyListeners();
+  }
+
+  List<Reservation> reservation = [];
 
   getLicense(String id) async {
     try {
-      var response = await Connection().showLicenseData(id);
+      var response = await LicenseConnection().showLicenseData(id);
       license =
           response.map<License>((json) => License.fromJson(json)).toList();
       print(license[0].licenseNumber);
@@ -80,11 +89,11 @@ class Business extends ChangeNotifier {
           SSN_reference_back,
           SSN_reference_face);
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('id', response['id']);
+      prefs.setString('id', response['id'].toString());
       prefs.setString('email', response['email']);
       prefs.setString('first_name', response['first_name']);
       prefs.setString('last_name', response['last_name']);
-      prefs.setString('mobile_number', response['mobile_number']);
+      prefs.setString('mobile_number', response['mobile_number'].toString());
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Homepage()),
@@ -110,10 +119,7 @@ class Business extends ChangeNotifier {
       print(e);
     }
   }
-
   updateDetails(
-      String id,
-      String token,
       String email,
       String password,
       String first_name,
@@ -123,14 +129,20 @@ class Business extends ChangeNotifier {
       String SSN,
       BuildContext context) async {
     try {
-      var response = await UserConnection().updateDetails(id, token, email,
-          password, first_name, last_name, mobile_number, city, SSN);
+      var response = await UserConnection().updateDetails(
+          email,
+          password,
+          first_name,
+          last_name,
+          mobile_number,
+          city,
+          SSN);
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('id', response['id']);
+      prefs.setString('id', response['id'].toString());
       prefs.setString('email', response['email']);
       prefs.setString('first_name', response['first_name']);
       prefs.setString('last_name', response['last_name']);
-      prefs.setString('mobile_number', response['mobile_number']);
+      prefs.setString('mobile_number', response['mobile_number'].toString());
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Homepage()),
@@ -143,7 +155,7 @@ class Business extends ChangeNotifier {
           builder: (BuildContext context) {
             return AlertDialog(
               title: const Text('Error'),
-              content: const Text('Invalid Credentials'),
+              content: const Text('Could not update details'),
               actions: [
                 TextButton(
                     onPressed: () {
@@ -156,4 +168,109 @@ class Business extends ChangeNotifier {
       print(e);
     }
   }
+
+  getReservation() async {
+    try {
+      var response = await ReservationConnection().showReservData();
+      reservation = response
+          .map<Reservation>((json) => Reservation.fromJson(json))
+          .toList();
+      print(reservation);
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  addReservation() {}
+  addLicense(
+  String license_number,
+      String license_type,
+  String license_expire_date,
+      String license_id_reference_face,
+  String license_id_reference_back,
+      String car_name,
+  String car_model,
+      String car_color,
+  String car_plates_number,
+      String car_type,
+  String car_year,
+      BuildContext context) async {
+    try {
+      var response = await LicenseConnection().addLicenseData(
+          license_number,
+          license_type,
+          license_expire_date,
+          license_id_reference_face,
+          license_id_reference_back,
+          car_name,
+          car_model,
+          car_color,
+          car_plates_number,
+          car_type,
+          car_year);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Homepage()),
+      );
+
+      notifyListeners();
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Could not add license'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('OK'))
+              ],
+            );
+          });
+      print(e);
+    }
+  }
+
+  addPayment(
+  String card_number,
+      String card_type,
+  String card_expire_date,
+      BuildContext context) async {
+    try {
+      // var response = await Payment().addPayment(
+      //     card_number,
+      //     card_type,
+      //     card_expire_date);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Homepage()),
+      );
+
+      notifyListeners();
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Could not add payment'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('OK'))
+              ],
+            );
+          });
+      print(e);
+    }
+}
+
 }
