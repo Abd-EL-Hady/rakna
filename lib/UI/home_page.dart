@@ -2,9 +2,9 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rakna/UI/Components/main_components.dart';
-import 'package:rakna/ui/book_page.dart';
+import 'package:rakna/UI/reservation_page.dart';
 import 'package:rakna/ui/profile_page.dart';
-import 'book_history.dart';
+import 'reservation_history.dart';
 import 'contact_us.dart';
 
 class Homepage extends StatefulWidget {
@@ -105,7 +105,7 @@ class _HomepageState extends State<Homepage> {
                 const Padding(
                   padding: EdgeInsets.only(top: 20.0),
                   child: Text(
-                    'اختار حابب تعمل إية ',
+                    'الرئيسة',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,
@@ -130,7 +130,7 @@ class _HomepageState extends State<Homepage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Book()),
+                                  builder: (context) => const ReservationPage()),
                             );
                           },
                           child: const Text(

@@ -3,8 +3,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:rakna/Providers/reservation_provider.dart';
 import 'package:rakna/UI/home_page.dart';
-import 'package:rakna/busniss.dart';
+import 'package:rakna/Providers/busniss.dart';
 import 'package:rakna/Connection/License.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,7 +27,8 @@ void main() async {
 
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => Business())],
+      providers: [ChangeNotifierProvider(create: (context) => Business()),
+      ChangeNotifierProvider(create: (context) => ReservationProvider())],
       child: MyApp(isLogin: true),
     ),
   );

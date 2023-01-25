@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rakna/busniss.dart';
 import 'package:rakna/ui/signup_page.dart';
 
+import '../Providers/busniss.dart';
 import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {

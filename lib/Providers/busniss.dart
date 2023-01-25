@@ -3,10 +3,10 @@ import 'package:rakna/Connection/User.dart';
 import 'package:rakna/Connection/Reservation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Connection/License.dart';
-import 'Model/license.dart';
-import 'Model/reservation.dart';
-import 'UI/home_page.dart';
+import '../Connection/License.dart';
+import '../Model/license.dart';
+import '../Model/reservation.dart';
+import '../UI/home_page.dart';
 
 class Business extends ChangeNotifier {
   List<License> license = [];
@@ -21,7 +21,7 @@ class Business extends ChangeNotifier {
 
   getLicense(String id) async {
     try {
-      var response = await Connection().showLicenseData(id);
+      var response = await LicenseConnection().showLicenseData(id);
       license =
           response.map<License>((json) => License.fromJson(json)).toList();
       print(license[0].licenseNumber);
@@ -121,7 +121,7 @@ class Business extends ChangeNotifier {
 
   getReservation() async {
     try {
-      var response = await ReservConnection().showReservData();
+      var response = await ReservationConnection().showReservData();
       reservation = response
           .map<Reservation>((json) => Reservation.fromJson(json))
           .toList();
@@ -131,4 +131,6 @@ class Business extends ChangeNotifier {
       print(e);
     }
   }
+
+  addReservation() {}
 }

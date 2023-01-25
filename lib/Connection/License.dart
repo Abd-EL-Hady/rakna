@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Connection {
+class LicenseConnection {
   Future showLicenseData(String id) async {
     Dio dio = Dio();
 
