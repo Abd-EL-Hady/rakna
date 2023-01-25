@@ -1,9 +1,11 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rakna/UI/Components/main_components.dart';
 import 'package:rakna/UI/reservation_page.dart';
 import 'package:rakna/ui/profile_page.dart';
+import '../model.dart';
+import 'book_history.dart';
+import 'car_license.dart';
 import 'reservation_history.dart';
 import 'package:rakna/UI/license_page.dart';
 import 'package:rakna/ui/profile_page.dart';
@@ -325,6 +327,46 @@ class _HomepageState extends State<Homepage> {
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: SizedBox(
+                            height: 100,
+                            width: 240,
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                  Colors.orange[600],
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Car()),
+                                );
+                              },
+                              child: const Text(
+                                'car license',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: 'Mada',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Image(
+                      image: AssetImage(
+                        'images/logo.jpg',
                       ),
                     ],
                   ),
