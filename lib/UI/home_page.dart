@@ -5,6 +5,9 @@ import 'package:rakna/UI/Components/main_components.dart';
 import 'package:rakna/UI/reservation_page.dart';
 import 'package:rakna/ui/profile_page.dart';
 import 'reservation_history.dart';
+import 'package:rakna/UI/License%20_Page.dart';
+import 'package:rakna/ui/profile_page.dart';
+import 'Payment_Page.dart';
 import 'contact_us.dart';
 
 class Homepage extends StatefulWidget {
@@ -152,7 +155,7 @@ class _HomepageState extends State<Homepage> {
                         child: ElevatedButton(
                           style: ButtonStyle(
                             overlayColor: MaterialStateProperty.resolveWith(
-                              (states) {
+                                  (states) {
                                 return states.contains(MaterialState.pressed)
                                     ? Colors.orange[600]
                                     : null;
@@ -193,7 +196,7 @@ class _HomepageState extends State<Homepage> {
                         child: ElevatedButton(
                           style: ButtonStyle(
                             overlayColor: MaterialStateProperty.resolveWith(
-                              (states) {
+                                  (states) {
                                 return states.contains(MaterialState.pressed)
                                     ? Colors.orange[600]
                                     : null;
@@ -244,6 +247,76 @@ class _HomepageState extends State<Homepage> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                              Colors.orange[600],
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const PaymentPage()),
+                            );
+                          },
+                          child: const Text(
+                            'ﺇضافة بطاقة',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.resolveWith(
+                                  (states) {
+                                return states.contains(MaterialState.pressed)
+                                    ? Colors.orange[600]
+                                    : null;
+                              },
+                            ),
+                            backgroundColor: MaterialStateProperty.all(
+                              Colors.white,
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LicencePage()),
+                            );
+                          },
+                          child: const Text(
+                            'رخصة القيادة',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
                               fontSize: 20,
                             ),
                           ),
