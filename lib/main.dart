@@ -7,10 +7,10 @@ import 'package:rakna/Providers/reservation_provider.dart';
 import 'package:rakna/UI/home_page.dart';
 import 'package:rakna/Providers/busniss.dart';
 import 'package:rakna/Connection/License.dart';
+import 'package:rakna/UI/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
-import 'ui/login_page.dart';
 import 'ui/contact_us.dart';
 
 String base_url = 'https://raknah.000webhostapp.com/api/';
@@ -27,8 +27,10 @@ void main() async {
 
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => Business()),
-      ChangeNotifierProvider(create: (context) => ReservationProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => Business()),
+        ChangeNotifierProvider(create: (context) => ReservationProvider())
+      ],
       child: MyApp(isLogin: true),
     ),
   );
@@ -44,9 +46,25 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
-      theme: ThemeData(fontFamily: 'cairo'),
+      theme: ThemeData(
+          fontFamily: 'cairo',
+          textTheme: const TextTheme(
+            bodyText1: TextStyle(fontSize: 16, color: Colors.white),
+            bodyText2: TextStyle(fontSize: 16, color: Colors.white),
+            headline1: TextStyle(fontSize: 16, color: Colors.white),
+            headline2: TextStyle(fontSize: 16, color: Colors.white),
+            headline3: TextStyle(fontSize: 16, color: Colors.white),
+            headline4: TextStyle(fontSize: 16, color: Colors.white),
+            headline5: TextStyle(fontSize: 16, color: Colors.white),
+            headline6: TextStyle(fontSize: 16, color: Colors.white),
+            subtitle1: TextStyle(fontSize: 16, color: Colors.white),
+            subtitle2: TextStyle(fontSize: 16, color: Colors.white),
+            caption: TextStyle(fontSize: 16, color: Colors.white),
+            overline: TextStyle(fontSize: 16),
+            button: TextStyle(fontSize: 16),
+          )),
       themeMode: ThemeMode.light,
-      home: isLogin ? const Homepage() : const LoginPage(),
+      home: isLogin ? const LoginPage() : const Homepage(),
     );
   }
 }

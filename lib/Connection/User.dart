@@ -47,7 +47,7 @@ class UserConnection {
       String SSN_reference_face) async {
     Dio dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-     /*FirebaseMessaging.instance.getToken().then((value) {
+    /*FirebaseMessaging.instance.getToken().then((value) {
       value = value!.split("1")[0];
       prefs.setString('token', value);
      });*/
@@ -61,7 +61,7 @@ class UserConnection {
         "mobile_number": mobile_number,
         "city": city,
         "SSN": SSN,
-        "token": 'token' + DateTime.now().toString() + 'token',
+        "token": DateTime.now().toString() + 'token',
         "email": email,
         "password": password,
         "SSN_reference_back": SSN_reference_back,
@@ -78,14 +78,8 @@ class UserConnection {
     }
   }
 
-  Future updateDetails(
-      String email,
-      String password,
-      String first_name,
-      String last_name,
-      String mobile_number,
-      String city,
-      String SSN) async {
+  Future updateDetails(String email, String password, String first_name,
+      String last_name, String mobile_number, String city, String SSN) async {
     Dio dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FirebaseMessaging.instance.getToken().then((value) {
@@ -95,9 +89,13 @@ class UserConnection {
     try {
       print('start');
 
-
       var response = await dio.post(
-          base_url + 'user/update/' + email + '/' + prefs.getString('token')!  + '/',
+          base_url +
+              'user/update/' +
+              email +
+              '/' +
+              prefs.getString('token')! +
+              '/',
           queryParameters: {
             "first_name": first_name,
             "last_name": last_name,

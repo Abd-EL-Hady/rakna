@@ -72,8 +72,8 @@ class _LicensesPageState extends State<LicensesPage> {
     try {
       if (_licenseface != null) {
         firebase_storage.Reference ref =
-        firebase_storage.FirebaseStorage.instance.ref().child(
-            'licenseface/${basename(_licenseface!.path) + "-" + DateTime.now().toString()}');
+            firebase_storage.FirebaseStorage.instance.ref().child(
+                'licenseface/${basename(_licenseface!.path) + "-" + DateTime.now().toString()}');
         firebase_storage.UploadTask uploadTask = ref.putFile(_licenseface!);
         await uploadTask.whenComplete(() async {
           _LicensefaceUrl = await ref.getDownloadURL();
@@ -115,9 +115,12 @@ class _LicensesPageState extends State<LicensesPage> {
 
   TextEditingController license_numberController = TextEditingController();
   TextEditingController license_typeController = TextEditingController();
-  TextEditingController license_expiration_dateController = TextEditingController();
-  TextEditingController license_id_reference_faceController = TextEditingController();
-  TextEditingController license_id_reference_backController = TextEditingController();
+  TextEditingController license_expiration_dateController =
+      TextEditingController();
+  TextEditingController license_id_reference_faceController =
+      TextEditingController();
+  TextEditingController license_id_reference_backController =
+      TextEditingController();
   TextEditingController car_nameController = TextEditingController();
   TextEditingController car_modelController = TextEditingController();
   TextEditingController car_colorController = TextEditingController();
@@ -148,35 +151,17 @@ class _LicensesPageState extends State<LicensesPage> {
                   autovalidateMode: AutovalidateMode.disabled,
                   child: Column(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          'من النهاردة ',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 45,
-                            fontFamily: 'cairo',
-                          ),
-                        ),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'مش هتتأخر عشان',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'cairo',
-                            fontSize: 30,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: ' بتركن',
-                              style: TextStyle(
-                                color: Colors.orange[600],
-                                fontSize: 30,
-                                fontFamily: 'cairo',
-                              ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'اضافة رخصة جديدة',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'cairo',
+                              fontSize: 30,
                             ),
-                          ],
+                          ),
                         ),
                       ),
                       const Image(
@@ -188,6 +173,7 @@ class _LicensesPageState extends State<LicensesPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           controller: license_numberController,
+                          keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'من فضلك ادخل رقم الرخصة';
@@ -209,7 +195,7 @@ class _LicensesPageState extends State<LicensesPage> {
                               fontFamily: 'cairo',
                             ),
                             suffix: Icon(
-                              Icons.email,
+                              Icons.card_membership,
                               color: Colors.orange[600],
                             ),
                             fillColor: Colors.white24,
@@ -236,13 +222,46 @@ class _LicensesPageState extends State<LicensesPage> {
                               borderRadius: BorderRadius.circular(25),
                             ),
                             labelText: 'اسم السيارة',
+                            hintText: 'مثال: بي ام دبليو 320i',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
                             ),
                             suffix: Icon(
-                              Icons.person,
+                              Icons.directions_car,
                               color: Colors.orange[600],
+                            ),
+                            fillColor: Colors.white24,
+                            filled: true,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          controller: car_typeController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'من فضلك ادخل نوع السيارة';
+                            }
+                            return null;
+                          },
+                          cursorRadius: const Radius.circular(25),
+                          cursorColor: Colors.orange[600],
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'cairo',
+                            fontSize: 20,
+                          ),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            labelText: 'ماركة السيارة',
+                            hintText: 'مثال:  تويوتا ',
+                            labelStyle: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'cairo',
                             ),
                             fillColor: Colors.white24,
                             filled: true,
@@ -269,13 +288,42 @@ class _LicensesPageState extends State<LicensesPage> {
                               borderRadius: BorderRadius.circular(25),
                             ),
                             labelText: 'موديل السيارة',
+                            hintText: 'مثال: كورولا ',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
                             ),
-                            suffix: Icon(
-                              Icons.person,
-                              color: Colors.orange[600],
+                            fillColor: Colors.white24,
+                            filled: true,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          controller: car_yearController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'من فضلك ادخل سنة السيارة';
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.phone,
+                          cursorRadius: const Radius.circular(25),
+                          cursorColor: Colors.orange[600],
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'cairo',
+                            fontSize: 20,
+                          ),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            labelText: 'سنة الصنع',
+                            labelStyle: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'cairo',
                             ),
                             fillColor: Colors.white24,
                             filled: true,
@@ -303,6 +351,7 @@ class _LicensesPageState extends State<LicensesPage> {
                               borderRadius: BorderRadius.circular(25),
                             ),
                             labelText: 'رقم لوحة السيارة',
+                            hintText: 'مثال: أ ب ج 1234',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
@@ -371,6 +420,7 @@ class _LicensesPageState extends State<LicensesPage> {
                               borderRadius: BorderRadius.circular(25),
                             ),
                             labelText: 'نوع الرخصة',
+                            hintText: 'مثال: سيارة خاصة',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
@@ -403,71 +453,7 @@ class _LicensesPageState extends State<LicensesPage> {
                               borderRadius: BorderRadius.circular(25),
                             ),
                             labelText: 'تاريخ انتهاء الرخصة',
-                            labelStyle: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'cairo',
-                            ),
-
-                            fillColor: Colors.white24,
-                            filled: true,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          controller: car_typeController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'من فضلك ادخل نوع السيارة';
-                            }
-                            return null;
-                          },
-                          keyboardType: TextInputType.phone,
-                          cursorRadius: const Radius.circular(25),
-                          cursorColor: Colors.orange[600],
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'cairo',
-                            fontSize: 20,
-                          ),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            labelText: 'نوع السيارة',
-                            labelStyle: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'cairo',
-                            ),
-                            fillColor: Colors.white24,
-                            filled: true,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          controller: car_yearController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'من فضلك ادخل سنة السيارة';
-                            }
-                            return null;
-                          },
-                          keyboardType: TextInputType.phone,
-                          cursorRadius: const Radius.circular(25),
-                          cursorColor: Colors.orange[600],
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'cairo',
-                            fontSize: 20,
-                          ),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            labelText: 'سنة السيارة',
+                            hintText: 'مثال: 2021/12/31',
                             labelStyle: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'cairo',
@@ -512,60 +498,7 @@ class _LicensesPageState extends State<LicensesPage> {
                               margin: const EdgeInsets.all(16),
                               padding: const EdgeInsets.all(16),
                               child: Text(
-                                'الرجاء ارفاق صورة الرخصة السياقية (وجه+ظهر)', //الصورة الشخصية
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'cairo',
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                          if (_licenseface != null)
-                            Image.file(
-                              _licenseface!,
-                              width: 50,
-                              height: 50,
-                              fit: BoxFit.cover,
-                            ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  title: Text("اختيار الصورة"),
-                                  content: Text(
-                                      "الرجاء ارفاق صورة الرخصة السياقية (وجه+ظهر)"),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          imgFromGallery(License.back);
-                                        },
-                                        child: Text('الاستديو')),
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          imgFromCamera(License.back);
-                                        },
-                                        child: Text('الكاميرا'))
-                                  ],
-                                ),
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Colors.orange[600],
-                              ),
-                              margin: const EdgeInsets.all(16),
-                              padding: const EdgeInsets.all(16),
-                              child: Text(
-                                'الرجاء ارفاق صورة الرخصة السياقية (وجه+ظهر)', //الصورة الشخصية
+                                'الرجاء ارفاق صورة الرخصة السياقية (وجه)', //الصورة الشخصية
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'cairo',
@@ -638,57 +571,59 @@ class _LicensesPageState extends State<LicensesPage> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate() &&
                                 approved == true &&
-                                _licenseface != null &&
                                 _licenseface != null) {
                               try {
                                 await uploadFile(context);
 
                                 Provider.of<Business>(context, listen: false)
                                     .addLicense(
-                                    license_numberController.value.text,
-                                    license_typeController.value.text,
-                                    license_expiration_dateController.value.text,
-                                    car_nameController.value.text,
-                                    car_modelController.value.text,
-                                    car_colorController.value.text,
-                                    car_plates_numberController.value.text,
-                                    car_typeController.value.text,
-                                    car_yearController.value.text,
-                                    _LicensefaceUrl!, _LicensefaceUrl!, context);
+                                        license_numberController.value.text,
+                                        license_typeController.value.text,
+                                        license_expiration_dateController
+                                            .value.text,
+                                        car_nameController.value.text,
+                                        car_modelController.value.text,
+                                        car_colorController.value.text,
+                                        car_plates_numberController.value.text,
+                                        car_typeController.value.text,
+                                        car_yearController.value.text,
+                                        _LicensefaceUrl!,
+                                        _LicensefaceUrl!,
+                                        context);
                               } catch (e) {
                                 print(e);
 
                                 showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: Text("تنبيه"),
-                                      content: Text(" حدث خطأ ما" +
-                                          "/n" +
-                                          e.toString()),
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text("حسنا"))
-                                      ],
-                                    ));
+                                          title: Text("تنبيه"),
+                                          content: Text(" حدث خطأ ما" +
+                                              "/n" +
+                                              e.toString()),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("حسنا"))
+                                          ],
+                                        ));
                               }
                             } else {
                               print('error');
                               showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
-                                    title: Text("تنبيه"),
-                                    content: Text(" يجب ملئ جميع الحقول"),
-                                    actions: [
-                                      TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text("حسنا"))
-                                    ],
-                                  ));
+                                        title: Text("تنبيه"),
+                                        content: Text(" يجب ملئ جميع الحقول"),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text("حسنا"))
+                                        ],
+                                      ));
                             }
                           },
                           child: SizedBox(

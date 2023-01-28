@@ -85,7 +85,7 @@ class ReservationProvider with ChangeNotifier {
   getLicenses() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var data = await LicenseConnection()
-        .showLicenseData(prefs.getInt("user_id").toString());
+        .showLicenseData();
     print(data);
     return data;
   }

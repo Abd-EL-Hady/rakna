@@ -12,29 +12,22 @@ class Profile_Page extends StatefulWidget {
 
 class _Profile_PageState extends State<Profile_Page> {
   final formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController first_nameController = TextEditingController();
-  TextEditingController last_nameController = TextEditingController();
-  TextEditingController mobile_numberController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController SSNController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SafeArea(
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: Stack(
-              children: [
-                const Image(
-                  image: AssetImage(
-                    'images/bg.jpg',
-                  ),
+    Provider.of<Business>(context, listen: false).initProfile();
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              const Image(
+                image: AssetImage(
+                  'images/bg.jpg',
                 ),
-                Form(
+              ),
+              Consumer<Business>(builder: (context, obj, snapshot) {
+                return Form(
                   child: Column(
                     key: formKey,
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -51,12 +44,12 @@ class _Profile_PageState extends State<Profile_Page> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           validator: (value) {
-                            if (value!.isEmpty){
+                            if (value!.isEmpty) {
                               return 'الرجاء ادخال البريد الالكتروني';
                             }
                             return null;
                           },
-                          controller: emailController,
+                          controller: obj.emailController,
                           style: TextStyle(
                             color: Colors.orange[600],
                           ),
@@ -67,7 +60,6 @@ class _Profile_PageState extends State<Profile_Page> {
                             labelText: 'البريد الإلكتروني ',
                             labelStyle: const TextStyle(
                               color: Colors.white,
-                              fontFamily: 'Mada',
                             ),
                             suffix: Icon(
                               Icons.email,
@@ -80,12 +72,13 @@ class _Profile_PageState extends State<Profile_Page> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           validator: (value) {
-                            if (value!.isEmpty){
+                            if (value!.isEmpty) {
                               return 'الرجاء ادخال كلمة المرور';
                             }
                             return null;
                           },
-                          controller: passwordController,
+                          obscureText: true,
+                          controller: obj.passwordController,
                           style: TextStyle(
                             color: Colors.orange[600],
                           ),
@@ -96,7 +89,6 @@ class _Profile_PageState extends State<Profile_Page> {
                             labelText: 'كلمة السر ',
                             labelStyle: const TextStyle(
                               color: Colors.white,
-                              fontFamily: 'Mada',
                             ),
                           ),
                         ),
@@ -105,12 +97,12 @@ class _Profile_PageState extends State<Profile_Page> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           validator: (value) {
-                            if (value!.isEmpty){
+                            if (value!.isEmpty) {
                               return 'الرجاء ادخال الاسم الاول';
                             }
                             return null;
                           },
-                          controller: first_nameController,
+                          controller: obj.first_nameController,
                           style: TextStyle(
                             color: Colors.orange[600],
                           ),
@@ -121,7 +113,6 @@ class _Profile_PageState extends State<Profile_Page> {
                             labelText: 'الاسم الأول ',
                             labelStyle: const TextStyle(
                               color: Colors.white,
-                              fontFamily: 'Mada',
                             ),
                           ),
                         ),
@@ -130,12 +121,12 @@ class _Profile_PageState extends State<Profile_Page> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           validator: (value) {
-                            if (value!.isEmpty){
+                            if (value!.isEmpty) {
                               return 'الرجاء ادخال الاسم الاخير';
                             }
                             return null;
                           },
-                          controller: last_nameController,
+                          controller: obj.last_nameController,
                           style: TextStyle(
                             color: Colors.orange[600],
                           ),
@@ -146,7 +137,6 @@ class _Profile_PageState extends State<Profile_Page> {
                             labelText: 'الاسم الأخير ',
                             labelStyle: const TextStyle(
                               color: Colors.white,
-                              fontFamily: 'Mada',
                             ),
                           ),
                         ),
@@ -155,12 +145,12 @@ class _Profile_PageState extends State<Profile_Page> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           validator: (value) {
-                            if (value!.isEmpty){
+                            if (value!.isEmpty) {
                               return 'الرجاء ادخال رقم الهاتف';
                             }
                             return null;
                           },
-                          controller:  mobile_numberController,
+                          controller: obj.mobile_numberController,
                           style: TextStyle(
                             color: Colors.orange[600],
                           ),
@@ -171,7 +161,6 @@ class _Profile_PageState extends State<Profile_Page> {
                             labelText: 'رقم الهاتف ',
                             labelStyle: const TextStyle(
                               color: Colors.white,
-                              fontFamily: 'Mada',
                             ),
                           ),
                         ),
@@ -180,12 +169,12 @@ class _Profile_PageState extends State<Profile_Page> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           validator: (value) {
-                            if (value!.isEmpty){
+                            if (value!.isEmpty) {
                               return 'الرجاء ادخال المدينة';
                             }
                             return null;
                           },
-                          controller: cityController,
+                          controller: obj.cityController,
                           style: TextStyle(
                             color: Colors.orange[600],
                           ),
@@ -196,28 +185,20 @@ class _Profile_PageState extends State<Profile_Page> {
                             labelText: 'المدينة ',
                             labelStyle: const TextStyle(
                               color: Colors.white,
-                              fontFamily: 'Mada',
                             ),
                           ),
                         ),
-//                         onPressed: () {
-// /*                          Provider.of<Business>(context, listen: false)
-//                               .updateDetails();*/
-//                         },
-//                         child: const Text(
-//                           'تغيير البيانات ',
-//                       ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           validator: (value) {
-                            if (value!.isEmpty){
+                            if (value!.isEmpty) {
                               return 'الرجاء ادخال الرقم القومي';
                             }
                             return null;
                           },
-                          controller: SSNController,
+                          controller: obj.SSNController,
                           style: TextStyle(
                             color: Colors.orange[600],
                           ),
@@ -228,7 +209,6 @@ class _Profile_PageState extends State<Profile_Page> {
                             labelText: 'الرقم القومي ',
                             labelStyle: const TextStyle(
                               color: Colors.white,
-                              fontFamily: 'Mada',
                             ),
                           ),
                         ),
@@ -242,28 +222,24 @@ class _Profile_PageState extends State<Profile_Page> {
                             ),
                           ),
                           onPressed: () {
-                            if (formKey.currentState!.validate()) try {
-                              Provider.of<Business>(context, listen: false)
-                                  .updateDetails(
-                                  emailController.text,
-                                  passwordController.text,
-                                  first_nameController.text,
-                                  last_nameController.text,
-                                  mobile_numberController.text,
-                                  cityController.text,
-                                  SSNController.text,
-                                  context);
-                            }catch (e){
-                              print('error');
+                            print('pressed');
+                            if (formKey.currentState?.validate() ?? true) {
+                              print('valid');
+                              print('valid');
+
+                              try {
+                                Provider.of<Business>(context, listen: false)
+                                    .updateDetails(context);
+                                print('done');
+                              } catch (e) {
+                                print(e);
+                              }
                             }
                           },
-
-
                           child: const Text(
                             'تغيير البيانات ',
                             style: TextStyle(
                               color: Colors.white,
-                              fontFamily: 'Mada',
                             ),
                           ),
                         ),
@@ -282,7 +258,6 @@ class _Profile_PageState extends State<Profile_Page> {
                               'الملف ',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontFamily: 'Mada',
                                 fontSize: 45,
                               ),
                             ),
@@ -295,7 +270,6 @@ class _Profile_PageState extends State<Profile_Page> {
                                 text: 'الشخصي',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontFamily: 'Mada',
                                   fontSize: 45,
                                 ),
                               ),
@@ -305,9 +279,9 @@ class _Profile_PageState extends State<Profile_Page> {
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
+                );
+              }),
+            ],
           ),
         ),
       ),

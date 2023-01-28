@@ -8,7 +8,6 @@ import '../Model/license.dart';
 import '../Model/reservation.dart';
 import '../UI/home_page.dart';
 
-
 class Business extends ChangeNotifier {
   List<License> license = [];
   bool approved = false;
@@ -20,12 +19,12 @@ class Business extends ChangeNotifier {
 
   List<Reservation> reservation = [];
 
-  getLicense(String id) async {
+  getLicense() async {
     try {
-      var response = await LicenseConnection().showLicenseData(id);
+      var response = await LicenseConnection().showLicenseData();
       license =
           response.map<License>((json) => License.fromJson(json)).toList();
-      print(license[0].licenseNumber);
+      print(license.first.licenseNumber);
       notifyListeners();
     } catch (e) {
       print(e);
@@ -38,9 +37,13 @@ class Business extends ChangeNotifier {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('id', response['id'].toString());
       prefs.setString('email', response['email']);
+      prefs.setString('password', password);
       prefs.setString('first_name', response['first_name']);
       prefs.setString('last_name', response['last_name']);
       prefs.setString('mobile_number', response['mobile_number']);
+      prefs.setString('city', response['city']);
+      prefs.setString('SSN', response['SSN']);
+
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Homepage()),
@@ -48,6 +51,7 @@ class Business extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
+      print(e);
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -119,24 +123,17 @@ class Business extends ChangeNotifier {
       print(e);
     }
   }
-  updateDetails(
-      String email,
-      String password,
-      String first_name,
-      String last_name,
-      String mobile_number,
-      String city,
-      String SSN,
-      BuildContext context) async {
+
+  updateDetails(BuildContext context) async {
     try {
       var response = await UserConnection().updateDetails(
-          email,
-          password,
-          first_name,
-          last_name,
-          mobile_number,
-          city,
-          SSN);
+          emailController.text,
+          passwordController.text,
+          first_nameController.text,
+          last_nameController.text,
+          mobile_numberController.text,
+          cityController.text,
+          SSNController.text);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('id', response['id'].toString());
       prefs.setString('email', response['email']);
@@ -175,6 +172,8 @@ class Business extends ChangeNotifier {
       reservation = response
           .map<Reservation>((json) => Reservation.fromJson(json))
           .toList();
+
+      await getLicense();
       print(reservation);
       notifyListeners();
     } catch (e) {
@@ -184,17 +183,17 @@ class Business extends ChangeNotifier {
 
   addReservation() {}
   addLicense(
-  String license_number,
+      String license_number,
       String license_type,
-  String license_expire_date,
+      String license_expire_date,
       String license_id_reference_face,
-  String license_id_reference_back,
+      String license_id_reference_back,
       String car_name,
-  String car_model,
+      String car_model,
       String car_color,
-  String car_plates_number,
+      String car_plates_number,
       String car_type,
-  String car_year,
+      String car_year,
       BuildContext context) async {
     try {
       var response = await LicenseConnection().addLicenseData(
@@ -236,10 +235,7 @@ class Business extends ChangeNotifier {
     }
   }
 
-  addPayment(
-  String card_number,
-      String card_type,
-  String card_expire_date,
+  addPayment(String card_number, String card_type, String card_expire_date,
       BuildContext context) async {
     try {
       // var response = await Payment().addPayment(
@@ -271,6 +267,35 @@ class Business extends ChangeNotifier {
           });
       print(e);
     }
-}
+  }
 
+  ////////////////////// Profile //////////////////////
+  ///
+  ///
+
+  //
+  TextEditingController emailController = TextEditingController()..text = " ";
+  TextEditingController passwordController = TextEditingController()
+    ..text = " ";
+  TextEditingController first_nameController = TextEditingController()
+    ..text = " ";
+  TextEditingController last_nameController = TextEditingController()
+    ..text = " ";
+  TextEditingController mobile_numberController = TextEditingController()
+    ..text = " ";
+  TextEditingController cityController = TextEditingController()..text = " ";
+  TextEditingController SSNController = TextEditingController()..text = " ";
+
+  Future initProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    emailController.text = prefs.getString('email')!;
+    passwordController.text = prefs.getString('password')!;
+    first_nameController.text = prefs.getString('first_name')!;
+    last_nameController.text = prefs.getString('last_name')!;
+    mobile_numberController.text = prefs.getString('mobile_number')!;
+    cityController.text = prefs.getString('city')!;
+    SSNController.text = prefs.getString('SSN')!;
+
+    notifyListeners();
+  }
 }
