@@ -3,8 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 
-class Payment{
-  Future addPayment(String card_number, String card_type, String card_expire_date) async {
+class PaymentConnection {
+  Future addPayment(
+      String card_number, String card_type, String card_expire_date) async {
     Dio dio = Dio();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -13,11 +14,12 @@ class Payment{
       print('start');
 
       var response = await dio.post(
-          base_url + 'user/payment/add/' + prefs.getString('token')!,queryParameters: {
-        'card_number': card_number,
-        'card_type': card_type,
-        'card_expire_date': card_expire_date,
-      },
+          base_url + 'user/payment/add/' + prefs.getString('token')!,
+          queryParameters: {
+            'card_number': card_number,
+            'card_type': card_type,
+            'card_expire_date': card_expire_date,
+          },
           options: Options(headers: {}));
 
       print(response.data);
@@ -29,7 +31,7 @@ class Payment{
     }
   }
 
-  Future deletePayment(String token ,String id) async {
+  Future deletePayment(String token, String id) async {
     Dio dio = Dio();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,8 +60,7 @@ class Payment{
     try {
       print('start');
 
-      var response = await dio.get(
-          base_url + 'user/payment/show/' + token,
+      var response = await dio.get(base_url + 'user/payment/show/' + token,
           options: Options(headers: {}));
 
       print(response.data);

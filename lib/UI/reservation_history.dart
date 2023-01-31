@@ -40,13 +40,56 @@ class _ReservationHistoryState extends State<ReservationHistory> {
                         child: ListView.builder(
                           itemCount: obj.reservation.length,
                           itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(
-                                  '${obj.license.where((element) => obj.reservation[index].licenseId == element.id).first.carModel}'),
-                              subtitle: Text(
-                                  '${obj.reservation[index].startDate.toString()}'),
-                              trailing: Text(
-                                  '${obj.reservation[index].endDate.toString()}'),
+                            return Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              decoration: BoxDecoration(
+                                  color: obj.reservation[index].status == 1
+                                      ? Colors.green
+                                      : Colors.red,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(children: [
+                                Text(
+                                    'اسم السيارة: '
+                                    '${obj.license.where((element) => obj.reservation[index].licenseId == element.id).first.carName}',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold)),
+                                Text(
+                                    'تاريخ الحجز: '
+                                    '${obj.reservation[index].startDate.toString()}',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    )),
+                                Text(
+                                  'المكان: ${obj.garageHolders.where((element) => obj.reservation[index].garageHolderId == element.garageHolderId).first.desription}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                    'الوقت: '
+                                    '${obj.reservation[index].hours.toString()}'
+                                    " ساعة ",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    )),
+                                Text(
+                                    'السعر: '
+                                    '${obj.reservation[index].price.toString()}'
+                                    " جنية ",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    )),
+                                Text(
+                                    'الحالة: '
+                                    '${obj.reservation[index].status == 1 ? "في انتظار الوصول" : "تم الوصول"}',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    )),
+                              ]),
                             );
                           },
                         ),

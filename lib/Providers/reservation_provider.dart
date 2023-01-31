@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rakna/Connection/Payment.dart';
+import 'package:rakna/Connection/PaymentConnection.dart';
 import 'package:rakna/Connection/Reservation.dart';
 import 'package:rakna/Model/license.dart';
 import 'package:rakna/Model/reservation.dart';
@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Connection/License.dart';
 import '../Model/City.dart';
+import '../Model/payment.dart';
 
 class ReservationProvider with ChangeNotifier {
   List avilaibletimes = [];
@@ -82,10 +83,41 @@ class ReservationProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  toggleTime(int time) {
+    selectedTime = time;
+    notifyListeners();
+  }
+
+  toggleLicense(License license) {
+    selectedLicense = license;
+    notifyListeners();
+  }
+
+  togglePayment(Payment payment) {
+    selectedPayment = payment;
+    notifyListeners();
+  }
+
   getLicenses() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var data = await LicenseConnection()
-        .showLicenseData();
+    var data = await LicenseConnection().showLicenseData();
+    print(data);
+    return data;
+  }
+
+  addReservation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    print(DateTime.now().toString().split('.')[0]);
+    var data = await ReservationConnection().createReservData(
+        start_date: DateTime.now().toString().split(".")[0],
+        end_date:
+            DateTime.now().add(Duration(hours: 1)).toString().split(".")[0],
+        license_id: selectedLicense.id.toString(),
+        garage_holder_id: selectedGarageHolder.garageHolderId.toString(),
+        cvv: '123',
+        price: "100",
+        payment_id: selectedPayment.id.toString());
     print(data);
     return data;
   }

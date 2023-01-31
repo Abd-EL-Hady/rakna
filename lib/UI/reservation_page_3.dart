@@ -1,25 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:rakna/Providers/busniss.dart';
 import 'package:rakna/Providers/reservation_provider.dart';
 import 'package:rakna/UI/Components/book.dart';
 import 'package:rakna/UI/Components/main_components.dart';
-import 'package:rakna/UI/reservation_page_3.dart';
+import 'package:rakna/UI/reservation_page_1.dart';
+import 'package:rakna/UI/reservation_page_4.dart';
 
-class ReservationPage_ChooseLicense extends StatefulWidget {
-  const ReservationPage_ChooseLicense({Key? key}) : super(key: key);
+import '../Providers/busniss.dart';
+
+class ReservationPageChoosePayment extends StatefulWidget {
+  const ReservationPageChoosePayment({Key? key}) : super(key: key);
 
   @override
-  State<ReservationPage_ChooseLicense> createState() =>
-      _ReservationPage_ChooseLicenseState();
+  State<ReservationPageChoosePayment> createState() =>
+      _ReservationPageChoosePaymentState();
 }
 
-class _ReservationPage_ChooseLicenseState
-    extends State<ReservationPage_ChooseLicense> {
+class _ReservationPageChoosePaymentState
+    extends State<ReservationPageChoosePayment> {
   List<Widget> places = <Widget>[];
 
+  int _selectedRegion = 0;
   bool vertical = false;
   final List<bool> _selectedPlaces = <bool>[];
   late DateTime dateTime;
@@ -52,7 +56,6 @@ class _ReservationPage_ChooseLicenseState
   }
 
   var current = DateTime.now();
-
   @override
   Widget build(BuildContext context) {
     return Consumer<ReservationProvider>(
@@ -80,7 +83,7 @@ class _ReservationPage_ChooseLicenseState
                           ),
                           const Center(
                             child: Text(
-                              'اختيار السيارة ',
+                              'اختيار بطاقة الدفع',
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.white,
@@ -99,7 +102,7 @@ class _ReservationPage_ChooseLicenseState
                               color: Colors.white12,
                             ),
                             child: ListView.builder(
-                              itemCount: _.license.length,
+                              itemCount: _.payments.length,
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -107,44 +110,50 @@ class _ReservationPage_ChooseLicenseState
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
-                                        color: _.license[index] ==
-                                                obj.selectedLicense
+                                        color: _.payments[index] ==
+                                                obj.selectedPayment
                                             ? Colors.white30
                                             : null,
                                       ),
                                       child: Column(
                                         children: [
-                                          Center(
-                                            child:
-                                                Text(_.license[index].carName!,
-                                                    style: const TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.white,
-                                                    )),
-                                          ),
-                                          Center(
-                                            child: Directionality(
-                                              textDirection: TextDirection.rtl,
-                                              child: Text(
-                                                _.license[index].carType!,
-                                                style: const TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.white,
-                                                ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Center(
+                                                    child: Text(
+                                                        _.payments[index]
+                                                            .cardNumber!,
+                                                        style: const TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.white,
+                                                        )),
+                                                  ),
+                                                  Center(
+                                                    child: Directionality(
+                                                      textDirection:
+                                                          TextDirection.rtl,
+                                                      child: Text(
+                                                        _.payments[index]
+                                                            .cardExpireDate!,
+                                                        style: const TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                          ),
-                                          Center(
-                                            child: Directionality(
-                                              textDirection: TextDirection.rtl,
-                                              child: Text(
-                                                _.license[index].carModel!,
-                                                style: const TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.white,
-                                                ),
+                                              Icon(
+                                                Icons.credit_card,
+                                                color: Colors.white,
+                                                size: 46,
                                               ),
-                                            ),
+                                            ],
                                           ),
                                           Divider(
                                             color: Colors.orange,
@@ -153,7 +162,7 @@ class _ReservationPage_ChooseLicenseState
                                       ),
                                     ),
                                     onTap: () {
-                                      obj.toggleLicense(_.license[index]);
+                                      obj.togglePayment(_.payments[index]);
                                     },
                                   ),
                                 );
@@ -183,7 +192,7 @@ class _ReservationPage_ChooseLicenseState
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            const ReservationPageChoosePayment(),
+                                            const ReservationPageFinal(),
                                       ),
                                     );
                                   },

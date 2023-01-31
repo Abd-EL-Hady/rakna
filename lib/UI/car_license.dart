@@ -33,10 +33,47 @@ class _CarState extends State<Car> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.7,
                       child: ListView.builder(
-                        itemCount: carlicense.length,
+                        itemCount: obj.license.length,
                         itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text('${carlicense[index]}'),
+                          return Container(
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: Text(obj.license[index].carName!,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      )),
+                                ),
+                                Center(
+                                  child: Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: Text(
+                                      obj.license[index].carType!,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Center(
+                                  child: Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: Text(
+                                      obj.license[index].carModel!,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Divider(
+                                  color: Colors.orange,
+                                )
+                              ],
+                            ),
                           );
                         },
                       ),

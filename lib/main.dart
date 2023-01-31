@@ -31,7 +31,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => Business()),
         ChangeNotifierProvider(create: (context) => ReservationProvider())
       ],
-      child: MyApp(isLogin: true),
+      child: MyApp(isLogin: isLogin),
     ),
   );
 }
@@ -51,20 +51,11 @@ class MyApp extends StatelessWidget {
           textTheme: const TextTheme(
             bodyText1: TextStyle(fontSize: 16, color: Colors.white),
             bodyText2: TextStyle(fontSize: 16, color: Colors.white),
-            headline1: TextStyle(fontSize: 16, color: Colors.white),
-            headline2: TextStyle(fontSize: 16, color: Colors.white),
-            headline3: TextStyle(fontSize: 16, color: Colors.white),
-            headline4: TextStyle(fontSize: 16, color: Colors.white),
-            headline5: TextStyle(fontSize: 16, color: Colors.white),
-            headline6: TextStyle(fontSize: 16, color: Colors.white),
-            subtitle1: TextStyle(fontSize: 16, color: Colors.white),
-            subtitle2: TextStyle(fontSize: 16, color: Colors.white),
-            caption: TextStyle(fontSize: 16, color: Colors.white),
             overline: TextStyle(fontSize: 16),
             button: TextStyle(fontSize: 16),
           )),
       themeMode: ThemeMode.light,
-      home: isLogin ? const LoginPage() : const Homepage(),
+      home: isLogin ? Homepage() : LoginPage(),
     );
   }
 }

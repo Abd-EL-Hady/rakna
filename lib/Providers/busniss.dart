@@ -1,16 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:rakna/Connection/PaymentConnection.dart';
 import 'package:rakna/Connection/User.dart';
 import 'package:rakna/Connection/Reservation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Connection/License.dart';
+import '../Model/City.dart';
 import '../Model/license.dart';
+import '../Model/payment.dart';
 import '../Model/reservation.dart';
 import '../UI/home_page.dart';
 
 class Business extends ChangeNotifier {
   List<License> license = [];
+  List<Payment> payments = [];
   bool approved = false;
+
+  List<Holders> garageHolders = [
+    Holders(
+        city: "القاهرة",
+        name: "G-3",
+        longitude: 31.2482,
+        latitude: 30.0652,
+        garageHolderId: 3,
+        desription: "ميدان رمسيس مقابل جامع الفتح"),
+    Holders(
+        city: "المنصورة",
+        name: "G-1",
+        longitude: 31.3601,
+        latitude: 31.0368,
+        garageHolderId: 1,
+        desription: "حي الجامعة - مقابل بوابة القرية الاولمبية"),
+    Holders(
+        city: "المنصورة",
+        name: "G-2",
+        longitude: 31.3573,
+        latitude: 31.0455,
+        garageHolderId: 2,
+        desription: "المشاية العلوية مقابل بوابة البارون"),
+  ];
 
   flipApproved() {
     approved = !approved;
@@ -31,8 +59,29 @@ class Business extends ChangeNotifier {
     }
   }
 
+  getPayments() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      var response =
+          await PaymentConnection().showPayment(prefs.getString('token')!);
+      payments =
+          response.map<Payment>((json) => Payment.fromJson(json)).toList();
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   login(String email, String password, BuildContext context) async {
     try {
+      showDialog(
+        context: context,
+        builder: (context) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        barrierDismissible: false,
+      );
       var response = await UserConnection().login(email, password);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('id', response['id'].toString());
@@ -43,14 +92,18 @@ class Business extends ChangeNotifier {
       prefs.setString('mobile_number', response['mobile_number']);
       prefs.setString('city', response['city']);
       prefs.setString('SSN', response['SSN']);
+      prefs.setBool('isLogin', true);
 
-      Navigator.push(
+      Navigator.pop(context);
+
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const Homepage()),
       );
 
       notifyListeners();
     } catch (e) {
+      Navigator.pop(context);
       print(e);
       showDialog(
           context: context,
@@ -82,6 +135,13 @@ class Business extends ChangeNotifier {
       String SSN_reference_face,
       BuildContext context) async {
     try {
+      showDialog(
+        context: context,
+        builder: (context) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        barrierDismissible: false,
+      );
       var response = await UserConnection().signUp(
           email,
           password,
@@ -98,6 +158,9 @@ class Business extends ChangeNotifier {
       prefs.setString('first_name', response['first_name']);
       prefs.setString('last_name', response['last_name']);
       prefs.setString('mobile_number', response['mobile_number'].toString());
+      prefs.setBool('isLogin', true);
+
+      Navigator.pop(context);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Homepage()),
@@ -105,6 +168,7 @@ class Business extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
+      Navigator.pop(context);
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -174,6 +238,8 @@ class Business extends ChangeNotifier {
           .toList();
 
       await getLicense();
+      var a = await getPayments();
+      print(a.toString());
       print(reservation);
       notifyListeners();
     } catch (e) {
@@ -181,7 +247,6 @@ class Business extends ChangeNotifier {
     }
   }
 
-  addReservation() {}
   addLicense(
       String license_number,
       String license_type,

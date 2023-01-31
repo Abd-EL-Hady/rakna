@@ -50,7 +50,6 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           'هتوفر وقـتـك و أعصــابـك ',
                           style: TextStyle(
-                            fontFamily: 'Mada',
                             // fontWeight: FontWeight.bold,
                             color: Colors.white,
                             fontSize: 30,
@@ -60,10 +59,10 @@ class _LoginPageState extends State<LoginPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
+                              padding: const EdgeInsets.only(left: 00.0),
                               child: Container(
                                 height: 20,
                                 width: 18,
@@ -74,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 50.0),
+                              padding: const EdgeInsets.only(left: 00.0),
                               child: Container(
                                 height: 20,
                                 width: 18,
@@ -85,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 50.0),
+                              padding: const EdgeInsets.only(left: 00.0),
                               child: Container(
                                 height: 20,
                                 width: 18,
@@ -119,10 +118,9 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             labelText: 'البريد الإلكتروني ',
                             labelStyle: const TextStyle(
-                              fontFamily: 'Mada',
                               color: Colors.white,
                             ),
-                            suffix: Icon(
+                            suffixIcon: Icon(
                               Icons.email_sharp,
                               color: Colors.orange[800],
                             ),
@@ -132,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
+                          obscureText: true,
                           validator: (value) => value!.length < 6
                               ? 'كلمة السر يجب أن تكون أكثر من 6 أحرف'
                               : null,
@@ -147,7 +146,6 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             labelText: 'كلمة الـسـر',
                             labelStyle: const TextStyle(
-                              fontFamily: 'Mada',
                               color: Colors.white,
                             ),
                             // hintText: 'Enter Your Password',
@@ -192,7 +190,6 @@ class _LoginPageState extends State<LoginPage> {
                             child: const Text(
                               'تسجيل الدخول',
                               style: TextStyle(
-                                fontFamily: 'Mada',
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
                                 color: Colors.white,
@@ -209,6 +206,16 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          const Padding(
+                            padding: EdgeInsets.only(left: 0.0),
+                            child: Text(
+                              ' معندكش حساب !',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                           TextButton(
                             onPressed: () {
                               Navigator.push(
@@ -220,21 +227,9 @@ class _LoginPageState extends State<LoginPage> {
                             child: const Text(
                               'سجل من هنا ',
                               style: TextStyle(
-                                fontFamily: 'Mada',
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                                 color: Colors.deepOrangeAccent,
-                              ),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 90.0),
-                            child: Text(
-                              '! معندكش حساب  ',
-                              style: TextStyle(
-                                fontFamily: 'Mada',
-                                fontSize: 20,
-                                color: Colors.white,
                               ),
                             ),
                           ),
